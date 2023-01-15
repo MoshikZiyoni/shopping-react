@@ -36,3 +36,71 @@
     transform: rotate(360deg);
   }
 }
+.moshik-nav-link{
+  font-style:initial;
+  font: 30;
+  font-size: large;
+  padding: 8px;
+  border-radius: 4px;
+  text-decoration: none;
+  color: white;
+}
+
+.moshik-nav-link.selected{
+  color:black;
+  background-color: white;
+}
+
+.moshik-nav-link:hover{
+  color: black;
+}
+.center-items {
+  display: flex;
+  justify-content: center;
+}
+
+.card-hover:hover {
+  box-shadow: 0 0 10px #ccc;
+  transform: scale(1.05);
+  transition: all 0.2s ease-in-out;
+}
+.cart-right {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.movement{
+  /* width: 100px; */
+  /* height: 100px; */
+  /* background-color: red; */
+  position: relative;
+  animation-name: example;
+  animation-duration: 15s;
+  animation-timing-function: linear;
+  animation-delay: 2s;
+  animation-iteration-count: 2;
+  animation-direction: alternate;
+}
+
+@keyframes example {
+  0%   { left:0px; top:0px;}
+  25%  { left:200px; top:0px;}
+  50%   { left:0px; top:0px;}
+  100%  { left:200px; top:0px;}
+  /* 50%  { left:200px; top:200px;} */
+  /* 75%  { left:0px; top:200px;} */
+  /* 100% { left:0px; top:0px;} */
+}
+.movement.change-color-animate {
+  width: 300px;
+  height: 200px;
+  background-color: lightblue;
+  border-block-style: solid;
+  border-block-width: 10px;
+  animation: mymove 5s infinite;
+}
+
+@keyframes mymove {
+  50% {border-block-color: aliceblue;}
+}
