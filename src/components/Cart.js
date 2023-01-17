@@ -10,20 +10,20 @@ function Cart({product}) {
 
 
   function handleAddToCart(productId) {
-    setLoading(true)
-    axios.post(`http://localhost:5512/product/add-to-cart`, {
+    // setLoading(true)
+    axios.post(`http://localhost:5512/product/cart-list/`, {
         
-        product_id: productId,
+        products: productId,
         quantity: 1
     })
     .then(response => {
-        setLoading(false)
-        console.log(response,'Sucesess',productId);
+        // setLoading(false)
+        console.log(response,'Successes',productId);
         // do something with the response, like showing a message to the user
     })
     .catch(error => {
-        setLoading(false)
-        console.log(error,'Data not transfer',productId);
+        // setLoading(false)
+        console.log(error,'Data not transfer',productId,);
         // do something with the error, like showing an error message
     });
 }
@@ -35,6 +35,7 @@ function Cart({product}) {
       gridTemplateColumns: 'repeat(4, 1fr)',
       gridGap: '0.1rem',
     };
+    
     return (
         
       <div style={cardListStyle}>
@@ -60,6 +61,7 @@ function Cart({product}) {
                   </Card.Text>
                   <Link to="/cart">
                   <Button variant="primary" onClick={() => handleAddToCart(product.id)}>Add to cart</Button>
+                  
                   </Link>
                 </Card.Body>
               </Card>
