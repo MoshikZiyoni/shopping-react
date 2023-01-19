@@ -12,6 +12,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Cart from './components/Cart';
 import Homepage from './components/Homepage';
 import Background from './components/Background';
+import Cart_list from './components/Cart_list';
 
 
 
@@ -22,6 +23,14 @@ function App() {
     axios.get('http://127.0.0.1:5512/product/api/',{mode: 'no-cors'})
     .then((response)=> setProduct((response.data) ? response.data :
      []))
+    },[])
+
+    const [cartlist,setCartlist]=useState([])
+  
+  useEffect(()=>{
+    axios.get('http://127.0.0.1:5512/product/cart-list/',{mode: 'no-cors'})
+    .then((response)=> setCartlist((response.data) ? response.data :
+      []))
     },[])
 
   
@@ -39,7 +48,8 @@ function App() {
   
   <Routes>
       <Route path='/' element={   <Homepage> </Homepage>}></Route>
-      <Route path='/product' element={<Cart  product={product}></Cart>}></Route>
+      <Route path='/product' element={<Cart  product={product} setCartlist={setCartlist}  ></Cart>}></Route>
+      <Route path='/cart' element={<Cart_list cartlist={cartlist}></Cart_list>}></Route>
       {/* <Route path='/cart' element={<Cart  product={product}></Cart>}></Route> */}
     
     </Routes>

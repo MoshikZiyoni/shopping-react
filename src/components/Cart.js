@@ -5,19 +5,20 @@ import Background from './Background';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useState } from 'react';
-function Cart({product}) {
+function Cart({product,setCartlist}) {
   const [loading, setLoading] = useState(false)
 
 
   function handleAddToCart(productId) {
     // setLoading(true)
-    axios.post(`http://localhost:5512/product/cart-list/`, {
+    const product = {products: productId,quantity: 1 }
+    axios.post(`http://localhost:5512/product/cart-list/`, product
         
-        products: productId,
-        quantity: 1
-    })
+        
+    )
     .then(response => {
         // setLoading(false)
+        setCartlist(data=>[...data , product])
         console.log(response,'Successes',productId);
         // do something with the response, like showing a message to the user
     })
@@ -41,7 +42,7 @@ function Cart({product}) {
       <div style={cardListStyle}>
     
           {product.map((product) =>{
-              console.log(product);
+              // console.log(product);
               return(
                 <div key={product.id} style={{margin:'0.1rem'}}>
                 <Card border="secondary"  className="card-hover" style={{ width: '18rem', background:'powderblue', margin: '0.1rem', padding: '0.1rem' }}>
@@ -61,6 +62,7 @@ function Cart({product}) {
                   </Card.Text>
                   <Link to="/cart">
                   <Button variant="primary" onClick={() => handleAddToCart(product.id)}>Add to cart</Button>
+                  
                   
                   </Link>
                 </Card.Body>
