@@ -20,7 +20,7 @@ function App() {
   const [product,setProduct]=useState([])
   
   useEffect(()=>{
-    axios.get('http://127.0.0.1:5512/product/api/',{mode: 'no-cors'})
+    axios.get('https://shopping-django-1.onrender.com/product/api/',{mode: 'no-cors'})
     .then((response)=> setProduct((response.data) ? response.data :
      []))
     },[])
@@ -28,7 +28,7 @@ function App() {
     const [cartlist,setCartlist]=useState([])
   
   useEffect(()=>{
-    axios.get('http://127.0.0.1:5512/product/cart-list/',{mode: 'no-cors'})
+    axios.get('https://shopping-django-1.onrender.com/product/cart-list/',{mode: 'no-cors'})
     .then((response)=> setCartlist((response.data) ? response.data :
       []))
     },[])
