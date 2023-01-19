@@ -21,7 +21,7 @@ function Cart_list({cartlist}) {
   
   function deleteFromCart(productId) {
     // setLoading(true)
-    axios.delete(`http://127.0.0.1:5512/product/delete-cart/${productId}`)
+    axios.delete(`https://shopping-django-1.onrender.com/product/delete-cart/${productId}`)
         
     .then(response => {
         // setLoading(false)
@@ -39,7 +39,7 @@ function Cart_list({cartlist}) {
     <div key={cartlist.id} style={cardListStyle} >
       {cartlist.map(product => (
         <Card border="secondary" key={product.id} className="card-hover" style={{ width: '18rem', background:'powderblue', margin: '0.1rem', padding: '0.1rem' }}>
-          <Card.Img variant="top" src={`http://localhost:5512${product.products.image}`} alt="product image" />
+          <Card.Img variant="top" src={`https://shopping-django-1.onrender.com${product.products.image}`} alt="product image" />
           <Card.Body>
             <Card.Title>{product.products.name}</Card.Title>
             <Card.Text>
