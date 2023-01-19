@@ -46,7 +46,7 @@ function Cart({product,setCartlist}) {
               return(
                 <div key={product.id} style={{margin:'0.1rem'}}>
                 <Card border="secondary"  className="card-hover" style={{ width: '18rem', background:'powderblue', margin: '0.1rem', padding: '0.1rem' }}>
-                <Card.Img variant="top" src={`https://shopping-django-1.onrender.com/static/${product.image}`} alt="product image" />
+                <Card.Img variant="top" src={`https://shopping-django-1.onrender.com/static${product.image}`} alt="product image" />
                 <Card.Body>
                   <Card.Title>{product.name}</Card.Title>
                   <Card.Text>
