@@ -60,11 +60,9 @@ function Cart({product,setCartlist}) {
                   <br></br>
                   {product.updated}
                   </Card.Text>
-                  <Link to="/cart">
                   <Button variant="primary" onClick={() => handleAddToCart(product.id)}>Add to cart</Button>
                   
                   
-                  </Link>
                 </Card.Body>
               </Card>
               <br></br>

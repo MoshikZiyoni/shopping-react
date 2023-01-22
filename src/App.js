@@ -39,6 +39,9 @@ function App() {
   return (
     
     <BrowserRouter>
+    <head>
+        <base href="/" />
+      </head>
     <NavBar></NavBar> 
     {/* <Headers/> */}
     <Background>     </Background>
