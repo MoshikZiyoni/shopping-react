@@ -20,7 +20,7 @@ function App() {
   const [product,setProduct]=useState([])
   
   useEffect(()=>{
-    axios.get('https://shopping-django-1.onrender.com/product/api/',{mode: 'no-cors'})
+    axios.get('https://shopping-django-1.onrender.com/product/api/')
     .then((response)=> setProduct((response.data) ? response.data :
      []))
     },[])
@@ -28,7 +28,7 @@ function App() {
     const [cartlist,setCartlist]=useState([])
   
   useEffect(()=>{
-    axios.get('https://shopping-django-1.onrender.com/product/cart-list/',{mode: 'no-cors'})
+    axios.get('https://shopping-django-1.onrender.com/product/cart-list/')
     .then((response)=> setCartlist((response.data) ? response.data :
       []))
     },[])
@@ -39,9 +39,7 @@ function App() {
   return (
     
     <BrowserRouter>
-    <head>
-        <base href="/" />
-      </head>
+    
     <NavBar></NavBar> 
     {/* <Headers/> */}
     <Background>     </Background>
