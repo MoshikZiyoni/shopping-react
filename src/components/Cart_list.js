@@ -22,7 +22,7 @@ function Cart_list({cartlist}) {
   function deleteFromCart(productId) {
     // setLoading(true)
     axios.delete(`https://shopping-django-1.onrender.com/product/delete-cart/${productId}`)
-        
+    // axios.delete(`http://127.0.0.1:5512/product/delete-cart/${productId}`)
     .then(response => {
         // setLoading(false)
         console.log(response,'Successes',productId);
@@ -43,7 +43,7 @@ function Cart_list({cartlist}) {
           <Card.Body>
             <Card.Title>{product.products.name}</Card.Title>
             <Card.Text>
-              ID: {product.id}
+              ID: {product.products.id}
               <br></br>
               {product.products.description}
               <br></br>
@@ -55,7 +55,7 @@ function Cart_list({cartlist}) {
               <br/>
               Quantity: {product.quantity}
             </Card.Text>
-              <Button variant="danger" onClick={() => deleteFromCart(product.id)}>Remove</Button>
+              <Button variant="danger" onClick={() => deleteFromCart(product.products.id)}>Remove</Button>
               
           </Card.Body>
         </Card>
