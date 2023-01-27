@@ -1,11 +1,13 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import 'bootstrap/dist/css/bootstrap.css';
-import Background from './Background';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useState } from 'react';
-function Cart({product,setCartlist}) {
+import { MdDateRange ,MdOutlineDescription } from "react-icons/md";
+import { ImPriceTag } from "react-icons/im";
+
+function Product({product,setCartlist}) {
   const [loading, setLoading] = useState(false)
 
 
@@ -48,17 +50,17 @@ function Cart({product,setCartlist}) {
                 <Card border="secondary"  className="card-hover" style={{ width: '18rem', background:'powderblue', margin: '0.1rem', padding: '0.1rem' }}>
                 <Card.Img variant="top" src={`https://shopping-django-1.onrender.com/static${product.image}`} alt="product image" />
                 <Card.Body>
-                  <Card.Title>{product.name}</Card.Title>
+                  <Card.Title style={{ textDecoration: "underline"}}>{product.name}</Card.Title>
                   <Card.Text>
                   ID: {product.id}
                   <br></br>
-                  {product.description}
+                  <MdOutlineDescription/>{product.description}
                   <br></br>
-                  price: {product.price}
+                  <ImPriceTag/>price: {product.price}
                   <br></br>
-                  {product.created}
+                  <MdDateRange/>Create: {product.created}
                   <br></br>
-                  {product.updated}
+                  <MdDateRange/>Updated: {product.updated}
                   </Card.Text>
                   <Button variant="primary" onClick={() => handleAddToCart(product.id)}>Add to cart</Button>
                   
@@ -72,4 +74,4 @@ function Cart({product,setCartlist}) {
       </div>
     )
   }
-export default Cart
+export default Product
