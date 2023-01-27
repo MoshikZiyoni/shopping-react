@@ -15,6 +15,8 @@ function Product({product,setCartlist}) {
     // setLoading(true)
     const product = {products: productId,quantity: 1 }
     axios.post(`https://shopping-django-1.onrender.com/product/cart-list/`, product
+    // axios.post(`http://127.0.0.1:4444/product/cart-list/`, product
+
         
         
     )

@@ -80,7 +80,7 @@ function App() {
         backgroundImage: `url(${logo})`,
         "backgroundSize": "cover",
         position: "absolute",
-        height: "100%",
+        height: "170%",
         width: "100%",
 
       }} className="App"  >
