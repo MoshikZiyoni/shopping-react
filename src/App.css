@@ -113,3 +113,37 @@
 }
 
 
+.movement2 {
+  width: 300px;
+  height: 200px;
+  background-color: lightblue;
+  border-block-style: solid;
+  border-block-width: 10px;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  animation-name: example;
+  animation-duration: 15s;
+  animation-timing-function: linear;
+  animation-delay: 2s;
+  animation-iteration-count: 2;
+  animation-direction: alternate;
+}
+
+@keyframes example {
+  0%   { left:0px; top:0px;}
+  25%  { left:200px; top:0px;}
+  50%   { left:0px; top:0px;}
+  100%  { left:200px; top:0px;}
+}
+
+
+.movement2.change-color-animate {
+  width: 300px;
+  height: 200px;
+  background-color: lightblue;
+  border-block-style: solid;
+  border-block-width: 10px;
+  animation: mymove 5s infinite;
+}

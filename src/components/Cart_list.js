@@ -82,15 +82,18 @@ function Cart_list({ cartlist }) {
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
-    if (!cartList) {
+    if (!cartlist) {
       return;
     }
     let sum = 0;
-    cartList.forEach(product => {
-      sum += product.price * product.quantity;
+    cartlist.forEach(product => {
+      if (product.products.price) {
+        sum += product.products.price * product.quantity;
+      }
     });
     setTotalPrice(sum);
-  }, [cartList]);
+  }, [cartlist]);
+  
   
 
 
@@ -102,8 +105,10 @@ function Cart_list({ cartlist }) {
   }
   console.log(cartlist.length);
   return (
+<>
 
     <div key={cartlist.id} style={cardListStyle} >
+
 
       {cartlist.map(product => (
         <Card border="secondary" key={product.id} className="card-hover" style={{ width: '18rem', background: 'powderblue', margin: '0.1rem', padding: '0.1rem' }}>
@@ -139,19 +144,21 @@ function Cart_list({ cartlist }) {
 
 
           </Card.Body>
-          <IoBagCheckOutline></IoBagCheckOutline>
-          <Button variant='success' onClick={() => handleCheckout(product.products.id, product.id, quantity, cartlist)}>Checkout</Button>
+          {/* <IoBagCheckOutline></IoBagCheckOutline>
+          <Button variant='success' onClick={() => handleCheckout(product.products.id, product.id, quantity, cartlist)}>Checkout</Button> */}
 
 
-<div>Total Price: {totalPrice}</div>
         </Card>
-
-
-
-
       ))}
-
     </div>
+    <div style={{ textAlign: "center", marginTop: "20px" }}>
+  <span style={{ fontSize: "1.2em", fontWeight: "bold" }}>Total Price: {totalPrice}$</span>
+  <Button variant="primary" onClick={handleCheckout} style={{ marginLeft: "10px" }}>
+    Checkout
+  </Button>
+</div>
+
+    </>
   )
 }
 
