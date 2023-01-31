@@ -14,14 +14,7 @@ function Cart_list({ cartlist }) {
   const [cartList, setCartList] = useState(cartlist);
 
   const [quantity, setQuantity] = useState(1);
-  useEffect(() => {
-    axios.get('https://shopping-django-1.onrender.com/product/cart-list/')
-        .then((response) => setCartlist(response.data || []))
-        .catch(error => {
-            console.error(error);
-            setCartlist([]);
-        });
-  }, []);
+
   const cardListStyle = {
     display: 'grid',
     gridTemplateColumns: 'repeat(4, 1fr)',
