@@ -32,7 +32,7 @@ function Product({product,setCartlist}) {
     .catch(error => {
         // setLoading(false)
         alert(error,'Data not transfer',productId,);
-        // do something with the error, like showing an error message
+        /// do something with the error, like showing an error message
     });
 }
     if (!Array.isArray(product) || !product.length) {
