@@ -10,6 +10,7 @@ import { IoBagCheckOutline } from "react-icons/io5";
 
 
 function Cart_list({ cartlist }) {
+  const [refresh, setRefresh] = useState(false)
 
   const [cartList, setCartList] = useState(cartlist);
 
@@ -28,8 +29,6 @@ function Cart_list({ cartlist }) {
       "products": productId,
       quantity: quantity
     })
-
-    
       .then(response => {
         // setLoading(false)
         alert('Quantity is updated')
@@ -58,6 +57,8 @@ function Cart_list({ cartlist }) {
       .then(response => {
         alert('Checkout successful');
         setCartList([]);
+        setRefresh(prevState => !prevState)
+
       })
       .catch(error => {
         alert('Checkout failed');
