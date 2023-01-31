@@ -1,16 +1,12 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import 'bootstrap/dist/css/bootstrap.css';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import NavBar from './Navbar';
 import { MdDateRange, MdOutlineDescription, MdDeleteForever } from "react-icons/md";
 import { ImPriceTag } from "react-icons/im";
 import { GrUpdate } from "react-icons/gr";
 import { IoBagCheckOutline } from "react-icons/io5";
-
-
 
 
 function Cart_list({ cartlist }) {
@@ -56,14 +52,16 @@ function Cart_list({ cartlist }) {
   function handleMinusClick() {
     setQuantity(quantity - 1);
   }
+  
   function handleCheckout() {
-    axios.post('https://your-backend-url/checkout', { cartlist })
+
+    axios.post('https://shopping-django-1.onrender.com/product/order/', { cartlist: cartlist })
       .then(response => {
-        console.log(response, 'Checkout successful');
+        alert('Checkout successful');
         setCartList([]);
       })
       .catch(error => {
-        console.log(error, 'Checkout failed');
+        alert('Checkout failed');
       });
   }
 
@@ -83,6 +81,19 @@ function Cart_list({ cartlist }) {
         return <div>Data not transfer,please try again </div>
       });
   }
+  const [totalPrice, setTotalPrice] = useState(0);
+
+useEffect(() => {
+  let sum = 0;
+  cartlist.forEach(product => {
+    sum += product.price * product.quantity;
+  });
+  setTotalPrice(sum);
+}, [cartlist]);
+
+
+
+
   if (!Array.isArray(cartlist) || !cartlist.length) {
     return <div>Cart is empty</div>
   }
@@ -109,7 +120,7 @@ function Cart_list({ cartlist }) {
               <br />
               Quantity: {product.quantity}
             </Card.Text>
-            <GrUpdate></GrUpdate> <Button variant='success' onClick={() => updateCart(product.products.id, product.id, quantity)} style={{ margin: '0.8rem' }}>Update</Button>
+            <GrUpdate></GrUpdate> <Button variant='info' onClick={() => updateCart(product.products.id, product.id, quantity)} style={{ margin: '0.8rem' }}>Update</Button>
 
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <Button variant="danger" onClick={handleMinusClick}>-</Button>
@@ -117,22 +128,26 @@ function Cart_list({ cartlist }) {
               <Button onClick={handlePlusClick}>+</Button>
             </div>
             <br />
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
 
-              <div style={{ marginRight: '10px' }}>
-                <IoBagCheckOutline></IoBagCheckOutline>
-                <Button variant='success' onClick={handleCheckout}>Checkout</Button>
-              </div>
-              <div style={{ marginRight: '10px' }}>             
+
+            <div style={{ marginRight: '10px' }}>
               <MdDeleteForever></MdDeleteForever>
-              <Button variant="danger" onClick={() => deleteFromCart(product.products.id)}>Remove</Button></div> 
-            </div>
+              <Button variant="danger" onClick={() => deleteFromCart(product.products.id)}>Remove</Button></div>
+
 
           </Card.Body>
+          <IoBagCheckOutline></IoBagCheckOutline>
+          <Button variant='success' onClick={() => handleCheckout(product.products.id, product.id, quantity, cartlist)}>Checkout</Button>
+
+
+<div>Total Price: {totalPrice}</div>
         </Card>
 
 
+
+
       ))}
+
     </div>
   )
 }
