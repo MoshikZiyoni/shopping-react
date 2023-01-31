@@ -95,6 +95,7 @@ function App() {
           <Route path='/cart' element={<Cart_list cartlist={cartlist} ></Cart_list>}></Route>
           <Route path='/login' element={<Login login={login}></Login>}></Route>
           <Route path='/about' element={<About></About>}></Route>
+          <Route path="*" element={<Product product={product} setCartlist={setCartlist} />} />
 
         </Routes>
         <Footer />
