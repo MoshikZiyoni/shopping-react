@@ -9,7 +9,14 @@ import { ImPriceTag } from "react-icons/im";
 function Product({product,setCartlist}) {
   const [loading, setLoading] = useState(false)
 
+  const [product, setProduct] = useState([]);
 
+  useEffect(() => {
+    axios.get('https://shopping-django-1.onrender.com/product/api/')
+      .then(response => setProduct(response.data))
+      .catch(error => console.log(error));
+  }, []);
+  
   function handleAddToCart(productId) {
     // setLoading(true)
     const product = {products: productId,quantity: 1 }
