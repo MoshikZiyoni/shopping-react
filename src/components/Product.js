@@ -8,6 +8,7 @@ import { ImPriceTag } from "react-icons/im";
 
 function Product({product,setCartlist}) {
   const [loading, setLoading] = useState(false)
+  const [refresh, setRefresh] = useState(false)
 
 
   function handleAddToCart(productId) {
@@ -19,15 +20,18 @@ function Product({product,setCartlist}) {
     .then(response => {
         // setLoading(false)
         setCartlist(data=>[...data , product])
-        alert(response,'Successes',productId);
-        // do something with the response, like showing a message to the user
+        alert('Successes');
+        setRefresh(prevState => !prevState)
+
     })
     .catch(error => {
         // setLoading(false)
-        alert(error,'Data not transfer',productId,);
-        // do something with the error, like showing an error message
+        alert('Data not transfer');
     });
 }
+useEffect(() => {
+  console.log('refreshing');
+}, [refresh]);
     if (!Array.isArray(product) || !product.length) {
       return <div>No product found</div>
     }
