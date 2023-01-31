@@ -1,7 +1,6 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import 'bootstrap/dist/css/bootstrap.css';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useState } from 'react';
 import { MdDateRange ,MdOutlineDescription } from "react-icons/md";
@@ -16,19 +15,16 @@ function Product({product,setCartlist}) {
     const product = {products: productId,quantity: 1 }
     axios.post(`https://shopping-django-1.onrender.com/product/cart-list/`, product
     // axios.post(`http://127.0.0.1:4444/product/cart-list/`, product
-
-        
-        
     )
     .then(response => {
         // setLoading(false)
         setCartlist(data=>[...data , product])
-        console.log(response,'Successes',productId);
+        alert(response,'Successes',productId);
         // do something with the response, like showing a message to the user
     })
     .catch(error => {
         // setLoading(false)
-        console.log(error,'Data not transfer',productId,);
+        alert(error,'Data not transfer',productId,);
         // do something with the error, like showing an error message
     });
 }

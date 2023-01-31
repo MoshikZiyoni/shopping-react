@@ -28,18 +28,16 @@ function Cart_list({ cartlist }) {
       quantity: quantity
     })
 
-      //   axios.put(`http://127.0.0.1:4444/product/update-cart/${cartId}/`, {
-      //     "id": cartId,
-      //     "products": productId,
-      //     quantity: 3}
-      // )
+    
       .then(response => {
         // setLoading(false)
+        alert('Quantity is updated')
         console.log(response, 'Successes', productId);
         return <div>Successes </div>
       })
       .catch(error => {
         // setLoading(false)
+        alert('Data not transfer')
         console.log(error, 'Data not transfer', productId,);
         return <div>Data not transfer,please try again </div>
       });
@@ -72,24 +70,29 @@ function Cart_list({ cartlist }) {
       // axios.delete(`http://127.0.0.1:5512/product/delete-cart/${productId}`)
       .then(response => {
         // setLoading(false)
-        console.log(response, 'Successes', productId);
+        alert( 'Successes');
         return <div>Successes </div>
       })
       .catch(error => {
         // setLoading(false)
-        console.log(error, 'Data not transfer', productId,);
+        alert( 'Data not transfer');
         return <div>Data not transfer,please try again </div>
       });
   }
   const [totalPrice, setTotalPrice] = useState(0);
 
-useEffect(() => {
-  let sum = 0;
-  cartlist.forEach(product => {
-    sum += product.price * product.quantity;
-  });
-  setTotalPrice(sum);
-}, [cartlist]);
+  useEffect(() => {
+    if (!cartList) {
+      return;
+    }
+    let sum = 0;
+    cartList.forEach(product => {
+      sum += product.price * product.quantity;
+    });
+    setTotalPrice(sum);
+  }, [cartList]);
+  
+
 
 
 
