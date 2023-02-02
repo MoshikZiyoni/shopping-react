@@ -83,7 +83,7 @@ function App() {
         "backgroundSize": "cover",
         position: "absolute",
         // height: "170%",
-        // width: "100%",
+        width: "100%",
 
       }} className="App"  >
       <Headers/>
@@ -98,7 +98,7 @@ function App() {
           <Route path="*" element={<Product product={product} setCartlist={setCartlist} />} />
 
         </Routes>
-        <Footer />
+        {/* <Footer /> */}
 
       </div>
     </BrowserRouter>
