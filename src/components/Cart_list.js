@@ -27,9 +27,13 @@ function Cart_list({ cartlist }) {
   const [loading, setLoading] = useState(false)
 
   const cardListStyle = {
-    display: 'grid',
+    display: 'flex',
     gridTemplateColumns: 'repeat(4, 1fr)',
     gridGap: '0.1rem',
+    justifyContent: 'space-evenly',
+    flexWrap: 'wrap',
+    width:'80%',
+
   };
   function updateCart(productId, cartId, quantity) {
     setShowMessage(productId)
