@@ -7,37 +7,49 @@ import { MdDateRange, MdOutlineDescription, MdDeleteForever } from "react-icons/
 import { ImPriceTag } from "react-icons/im";
 import { GrUpdate } from "react-icons/gr";
 import { IoBagCheckOutline } from "react-icons/io5";
-
+// import { Message, Icon } from 'semantic-ui-react'
+import MessageExampleIcon from './MessageExampleIcon';
+// const MessageExampleIcon = ({ loading }) => (
+//   <Message icon visible={loading}>
+//     <Icon name='circle notched' loading />
+//     <Message.Content>
+//       <Message.Header>Just one second</Message.Header>
+//       We are fetching that content for you.
+//     </Message.Content>
+//   </Message>
+// )
 
 function Cart_list({ cartlist }) {
   const [refresh, setRefresh] = useState(false)
-
   const [cartList, setCartList] = useState(cartlist);
-
   const [quantity, setQuantity] = useState(1);
+  const [showMessage, setShowMessage] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   const cardListStyle = {
     display: 'grid',
     gridTemplateColumns: 'repeat(4, 1fr)',
     gridGap: '0.1rem',
   };
-  // const producttoupdate={id: cartlist.id,products:product.products.id,quantity: 3 }
   function updateCart(productId, cartId, quantity) {
-    // setLoading(true)
+    setShowMessage(productId)
+    setLoading(true)
     axios.put(`https://shopping-django-1.onrender.com/product/update-cart/${cartId}/`, {
       "id": cartId,
       "products": productId,
       quantity: quantity
     })
       .then(response => {
-        // setLoading(false)
+        setLoading(false)
         alert('Quantity is updated')
+        setShowMessage(null)  // reset the showMessage state after the message has been displayed
         console.log(response, 'Successes', productId);
         return <div>Successes </div>
       })
       .catch(error => {
-        // setLoading(false)
+        setLoading(false)
         alert('Data not transfer')
+        setShowMessage(null)  // reset the showMessage state after the message has been displayed
         console.log(error, 'Data not transfer', productId,);
         return <div>Data not transfer,please try again </div>
       });
@@ -50,7 +62,7 @@ function Cart_list({ cartlist }) {
   function handleMinusClick() {
     setQuantity(quantity - 1);
   }
-  
+
   function handleCheckout() {
 
     axios.post('https://shopping-django-1.onrender.com/product/order/', { cartlist: cartlist })
@@ -67,17 +79,20 @@ function Cart_list({ cartlist }) {
 
 
   function deleteFromCart(productId) {
-    // setLoading(true)
+    setShowMessage(productId)
+    setLoading(true)
     axios.delete(`https://shopping-django-1.onrender.com/product/delete-cart/${productId}`)
       // axios.delete(`http://127.0.0.1:5512/product/delete-cart/${productId}`)
       .then(response => {
-        // setLoading(false)
-        alert( 'Successes');
+        setLoading(false)
+        alert('Successes');
+        setShowMessage(null)  // reset the showMessage state after the message has been displayed
         return <div>Successes </div>
       })
       .catch(error => {
-        // setLoading(false)
-        alert( 'Data not transfer');
+        setLoading(false)
+        alert('Data not transfer');
+        setShowMessage(null)  // reset the showMessage state after the message has been displayed
         return <div>Data not transfer,please try again </div>
       });
   }
@@ -95,10 +110,6 @@ function Cart_list({ cartlist }) {
     });
     setTotalPrice(sum);
   }, [cartlist]);
-  
-  
-
-
 
 
 
@@ -107,58 +118,57 @@ function Cart_list({ cartlist }) {
   }
   console.log(cartlist.length);
   return (
-<>
+    <>
 
-    <div key={cartlist.id} style={cardListStyle} >
+      <div key={cartlist.id} style={cardListStyle} >
 
 
-      {cartlist.map(product => (
-        <Card border="secondary" key={product.id} className="card-hover" style={{ width: '18rem', background: 'powderblue', margin: '0.1rem', padding: '0.1rem' }}>
-          <Card.Img variant="top" src={`https://shopping-django-1.onrender.com/static${product.products.image}`} alt="product image" />
-          <Card.Body>
-            <Card.Title style={{ textDecoration: "underline" }}>{product.products.name}</Card.Title>
-            <Card.Text>
-              ID: {product.products.id}
-              <br></br>
-              <MdOutlineDescription />{product.products.description}
-              <br></br>
-              <ImPriceTag />Price: {product.products.price}$
-              <br></br>
-              <MdDateRange />Create:{product.products.created}
-              <br></br>
-              <MdDateRange />Updated:{product.products.updated}
+        {cartlist.map(product => (
+          <Card border="secondary" key={product.id} className="card-hover" style={{ width: '18rem', background: 'powderblue', margin: '0.1rem', padding: '0.1rem' }}>
+            <Card.Img variant="top" src={`https://shopping-django-1.onrender.com/static${product.products.image}`} alt="product image" />
+            <Card.Body>
+              <Card.Title style={{ textDecoration: "underline" }}>{product.products.name}</Card.Title>
+              <Card.Text>
+                ID: {product.products.id}
+                <br></br>
+                <MdOutlineDescription />{product.products.description}
+                <br></br>
+                <ImPriceTag />Price: {product.products.price}$
+                <br></br>
+                <MdDateRange />Create:{product.products.created}
+                <br></br>
+                <MdDateRange />Updated:{product.products.updated}
+                <br />
+                Quantity: {product.quantity}
+              </Card.Text>
+              <GrUpdate></GrUpdate> <div class="ui icon message"><i aria-hidden="true" class="circle notched loading icon"></i><div class="content"><div class="header">Just one second</div>We are fetching that content for you.</div></div>
+ <Button variant='info' onClick={() => updateCart(product.products.id, product.id, quantity)} style={{ margin: '0.8rem' }}>Update</Button>
+              {showMessage === product.id && loading && <MessageExampleIcon loading={loading} />}
+
+
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                <Button variant="danger" onClick={handleMinusClick}>-</Button>
+                <input type="number" value={quantity} onChange={e => setQuantity(e.target.value)} />
+                <Button onClick={handlePlusClick}>+</Button>
+              </div>
               <br />
-              Quantity: {product.quantity}
-            </Card.Text>
-            <GrUpdate></GrUpdate> <Button variant='info' onClick={() => updateCart(product.products.id, product.id, quantity)} style={{ margin: '0.8rem' }}>Update</Button>
 
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-              <Button variant="danger" onClick={handleMinusClick}>-</Button>
-              <input type="number" value={quantity} onChange={e => setQuantity(e.target.value)} />
-              <Button onClick={handlePlusClick}>+</Button>
-            </div>
-            <br />
+              <div style={{ marginRight: '10px' }}>
+                <MdDeleteForever></MdDeleteForever>
+                <Button variant="danger" onClick={() => deleteFromCart(product.products.id)}>Remove</Button></div>
 
+            </Card.Body>
+           
 
-            <div style={{ marginRight: '10px' }}>
-              <MdDeleteForever></MdDeleteForever>
-              <Button variant="danger" onClick={() => deleteFromCart(product.products.id)}>Remove</Button></div>
-
-
-          </Card.Body>
-          {/* <IoBagCheckOutline></IoBagCheckOutline>
-          <Button variant='success' onClick={() => handleCheckout(product.products.id, product.id, quantity, cartlist)}>Checkout</Button> */}
-
-
-        </Card>
-      ))}
-    </div>
-    <div style={{ textAlign: "center", marginTop: "20px" }}>
-  <span style={{ fontSize: "1.2em", fontWeight: "bold" }}>Total Price: {totalPrice}$</span>
-  <Button variant="primary" onClick={handleCheckout} style={{ marginLeft: "10px" }}>
-    Checkout
-  </Button>
-</div>
+          </Card>
+        ))}
+      </div>
+      <div style={{ textAlign: "center", marginTop: "20px" }}>
+        <span style={{ fontSize: "1.2em", fontWeight: "bold" }}>Total Price: {totalPrice}$</span>
+        <Button variant="primary" onClick={handleCheckout} style={{ marginLeft: "10px" }}>
+          Checkout
+        </Button>
+      </div>
 
     </>
   )
