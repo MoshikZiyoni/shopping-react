@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { MdDateRange, MdOutlineDescription } from "react-icons/md";
 import { ImPriceTag } from "react-icons/im";
 import { Message, Icon } from 'semantic-ui-react'
+import ButtonSpinner from './Spinner';
 
 const MessageExampleIcon = ({ loading }) => (
   <Message icon visible={loading}>
@@ -16,10 +17,11 @@ const MessageExampleIcon = ({ loading }) => (
     </Message.Content>
   </Message>
 )
-function Product({ product, setCartlist ,setCartCount}) {
+function Product({ product, setCartlist, setCartCount }) {
   const [loading, setLoading] = useState(false)
   const [refresh, setRefresh] = useState(false)
   const [showMessage, setShowMessage] = useState(null)  // add this line
+  const [spinner, setSpinner] = useState(false)
 
 
   function handleAddToCart(productId) {
@@ -31,20 +33,20 @@ function Product({ product, setCartlist ,setCartCount}) {
     )
       .then(response => {
         axios.get(`https://shopping-django-1.onrender.com/product/api/${productId}`)
-        .then(productdata=>{
-          setLoading(false)
-          console.log("product",productdata.data);
-          product.products =  productdata.data;
-          setCartlist(carlist => 
-            [...carlist,product ]
-          )
-          alert('Successes');
-          setCartCount(cartcount=>cartcount+1)
-          setRefresh(prevState => !prevState)
-          setShowMessage(null)  // reset the showMessage state after the message has been displayed
-  
-        })
-        
+          .then(productdata => {
+            setLoading(false)
+            console.log("product", productdata.data);
+            product.products = productdata.data;
+            setCartlist(carlist =>
+              [...carlist, product]
+            )
+            alert('Successes');
+            setCartCount(cartcount => cartcount + 1)
+            setRefresh(prevState => !prevState)
+            setShowMessage(null)  // reset the showMessage state after the message has been displayed
+
+          })
+
       })
       .catch(error => {
         setLoading(false)
@@ -66,20 +68,21 @@ function Product({ product, setCartlist ,setCartCount}) {
     gridGap: '0.1rem',
     justifyContent: 'space-evenly',
     flexWrap: 'wrap',
-    width:'80%',
-    
+    width: '80%',
+
   };
 
   return (
 
-    <div style={cardListStyle }>
+    <div style={cardListStyle}>
+      {spinner ? <div style={{ display: 'flex' }}> <ButtonSpinner /></div> : null}
 
       {product.map((product) => {
         // console.log(product);
         return (
           <div key={product.id} style={{ margin: '0.1rem' }}>
             <Card border="secondary" className="card-hover" style={{ width: '18rem', background: 'powderblue', margin: '0.1rem', padding: '0.1rem' }}>
-              <Card.Img variant="top" src={`https://shopping-django-1.onrender.com/static${product.image}`} alt="product image" style={{height:300,width:'100%'}}/>
+              <Card.Img variant="top" src={`https://shopping-django-1.onrender.com/static${product.image}`} alt="product image" style={{ height: 300, width: '100%' }} />
               <Card.Body>
                 <Card.Title style={{ textDecoration: "underline" }}>{product.name}</Card.Title>
                 <Card.Text>
@@ -93,8 +96,14 @@ function Product({ product, setCartlist ,setCartCount}) {
                   <br></br>
                   <MdDateRange />Updated: {product.updated}
                 </Card.Text>
-                <Button variant="primary" onClick={() => handleAddToCart(product.id)}>Add to cart</Button>
-                {showMessage === product.id && loading && <MessageExampleIcon loading={loading} />}  
+                <Button variant="primary" onClick={() => {
+                  handleAddToCart(product.id); setSpinner(true)
+                  setTimeout(() => {
+                    setSpinner(false)
+                  }, 1000 * 3)
+                }
+                } >Add to cart</Button>
+                {showMessage === product.id && loading && <MessageExampleIcon loading={loading} />}
 
               </Card.Body>
             </Card>
