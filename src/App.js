@@ -82,7 +82,7 @@ function App() {
         backgroundImage: `url(${logo})`,
         "backgroundSize": "cover",
         position: "absolute",
-        // height: "170%",
+        minHeight: '92vh',
         width: "100%",
 
       }} className="App"  >
@@ -91,8 +91,8 @@ function App() {
         <Routes>
 
           <Route exact path='/' ></Route>
-          <Route path='/product' element={<Product product={product} setCartlist={setCartlist}  ></Product>}></Route>
-          <Route path='/cart' element={<Cart_list cartlist={cartlist} ></Cart_list>}></Route>
+          <Route path='/product' element={<Product product={product} setCartCount={setCartCount} setCartlist={setCartlist}  ></Product>}></Route>
+          <Route path='/cart' element={<Cart_list cartlist={cartlist} setCartlist={setCartlist} setCartCount={setCartCount}></Cart_list>}></Route>
           <Route path='/login' element={<Login login={login}></Login>}></Route>
           <Route path='/about' element={<About></About>}></Route>
           <Route path="*" element={<Product product={product} setCartlist={setCartlist} />} />

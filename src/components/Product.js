@@ -16,7 +16,7 @@ const MessageExampleIcon = ({ loading }) => (
     </Message.Content>
   </Message>
 )
-function Product({ product, setCartlist }) {
+function Product({ product, setCartlist ,setCartCount}) {
   const [loading, setLoading] = useState(false)
   const [refresh, setRefresh] = useState(false)
   const [showMessage, setShowMessage] = useState(null)  // add this line
@@ -30,12 +30,21 @@ function Product({ product, setCartlist }) {
       // axios.post(`http://127.0.0.1:4444/product/cart-list/`, product
     )
       .then(response => {
-        setLoading(false)
-        setCartlist(data => [...data, product])
-        alert('Successes');
-        setRefresh(prevState => !prevState)
-        setShowMessage(null)  // reset the showMessage state after the message has been displayed
-
+        axios.get(`https://shopping-django-1.onrender.com/product/api/${productId}`)
+        .then(productdata=>{
+          setLoading(false)
+          console.log("product",productdata.data);
+          product.products =  productdata.data;
+          setCartlist(carlist => 
+            [...carlist,product ]
+          )
+          alert('Successes');
+          setCartCount(cartcount=>cartcount+1)
+          setRefresh(prevState => !prevState)
+          setShowMessage(null)  // reset the showMessage state after the message has been displayed
+  
+        })
+        
       })
       .catch(error => {
         setLoading(false)
