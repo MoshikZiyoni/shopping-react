@@ -9,7 +9,7 @@ const AlertDanger = () => {
     if (show) {
         return (
           <Alert variant="danger" style={   { position:'fixed',zIndex: '9999'}} onClose={() => setShow(false) } dismissible>
-            <Alert.Heading>Delete successful</Alert.Heading>
+            <Alert.Heading>Something goes wrong, please try again or refresh the page</Alert.Heading>
           </Alert>
         );
       }

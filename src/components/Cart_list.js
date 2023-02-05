@@ -143,7 +143,7 @@ function Cart_list({ cartlist,setCartCount,setCartlist }) {
 
         {cartlist.map(product => (
           <Card border="secondary" key={product.id} className="card-hover" style={{ width: '18rem', background: 'powderblue', margin: '0.1rem', padding: '0.1rem' }}>
-            <Card.Img variant="top" src={`https://shopping-django-1.onrender.com/static${product.products.image}`} alt="product image" />
+            <Card.Img variant="top" src={`https://shopping-django-1.onrender.com/static${product.products.image}`} alt="product image" style={{ height: 300, width: '100%' }}/>
             <Card.Body>
               <Card.Title style={{ textDecoration: "underline" }}>{product.products.name}</Card.Title>
               <Card.Text>
