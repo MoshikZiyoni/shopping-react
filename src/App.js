@@ -18,12 +18,47 @@ import Product from './components/Product';
 
 function App() {
   const [product, setProduct] = useState([])
-  function login(user, pass) {
-    axios.post('http://127.0.0.1:4444/login/', {
-      username: user,
-      password: pass,
+  const [session, setSession] = useState(localStorage.getItem('session'))
+
+  function login(user, pass) {   
+    axios.post('http://localhost:4434/login/', {
+        username: user,
+        password: pass,
     })
-  }
+        .then(response => {
+            console.log(response.data);
+            setSession('logged-in')
+            alert('Success')
+            localStorage.setItem('session', 'logged-in')
+            localStorage.setItem('username', user)
+
+
+        })
+        .catch(error => {
+            console.log(error);
+            let status = error.message
+            switch (error.code) {
+                case "ERR_BAD_REQUEST":
+                    status = "username or password not correct"
+                    break
+                case "ERR_NETWORK":
+                    status = "could not reach the server. perhaps it is down?"
+                    break
+                case "ERR_BAD_RESPONSE":
+                    status = "server is up. but had an error. you can try again in a fews seconds"
+                    break
+                default:
+                    break
+            }
+            alert("something went wrong: " + status)
+        });
+}
+
+function logout() {
+  axios.get("http://localhost:4434/logout/")
+  setSession(null)
+  localStorage.removeItem('session')
+}
 
 
   useEffect(() => {
@@ -76,7 +111,7 @@ function App() {
 
     <BrowserRouter>
 
-      <NavBar  cartCount={cartCount} setCartCount={setCartCount}/>
+      <NavBar  cartCount={cartCount} setCartCount={setCartCount} logout={logout}/>
 
       <div style={{
         backgroundImage: `url(${logo})`,
@@ -98,7 +133,7 @@ function App() {
           <Route path="*" element={<Product product={product} setCartlist={setCartlist} />} />
 
         </Routes>
-        {/* <Footer /> */}
+        <Footer />
 
       </div>
     </BrowserRouter>

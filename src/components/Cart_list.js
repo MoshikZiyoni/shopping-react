@@ -81,6 +81,9 @@ function Cart_list({ cartlist,setCartCount,setCartlist }) {
       })
       .catch(error => {
         alert('Checkout failed');
+        setTimeout(() => {
+          setShowMessage(null)
+        }, 1000)
       });
   }
 
