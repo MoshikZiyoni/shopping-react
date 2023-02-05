@@ -130,8 +130,8 @@ function logout() {
           <Route path='/cart' element={<Cart_list cartlist={cartlist} setCartlist={setCartlist} setCartCount={setCartCount}></Cart_list>}></Route>
           <Route path='/login' element={<Login login={login}></Login>}></Route>
           <Route path='/about' element={<About></About>}></Route>
-          <Route path="*" element={<Product product={product} setCartlist={setCartlist} />} />
-
+          {/* <Route path="*" element={<Product product={product} setCartlist={setCartlist}  />} /> */}
+          <Route path="*" />
         </Routes>
         <Footer />
 
