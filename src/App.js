@@ -58,7 +58,8 @@ function logout() {
   axios.get("https://shopping-django-1.onrender.com/logout/")
   setSession(null)
   alert('logout successful')
-  localStorage.removeItem('session','username')
+  localStorage.removeItem('session')
+  localStorage.removeItem('username')
 }
 
 
