@@ -57,7 +57,8 @@ function App() {
 function logout() {
   axios.get("https://shopping-django-1.onrender.com/logout/")
   setSession(null)
-  localStorage.removeItem('session')
+  alert('logout successful')
+  localStorage.removeItem('session','username')
 }
 
 
@@ -70,7 +71,6 @@ function logout() {
   const [cartlist, setCartlist] = useState([])
 
   useEffect(() => {
-    // axios.get('https://shopping-django-1.onrender.com/product/cart-list/')
       axios.get('https://shopping-django-1.onrender.com/product/cart-list/')
 
       .then((response) => setCartlist((response.data) ? response.data :
