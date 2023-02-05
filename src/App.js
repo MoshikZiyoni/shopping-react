@@ -21,7 +21,7 @@ function App() {
   const [session, setSession] = useState(localStorage.getItem('session'))
 
   function login(user, pass) {   
-    axios.post('http://localhost:4434/login/', {
+    axios.post('https://shopping-django-1.onrender.com/login/', {
         username: user,
         password: pass,
     })
@@ -55,7 +55,7 @@ function App() {
 }
 
 function logout() {
-  axios.get("http://localhost:4434/logout/")
+  axios.get("https://shopping-django-1.onrender.com/logout/")
   setSession(null)
   localStorage.removeItem('session')
 }
