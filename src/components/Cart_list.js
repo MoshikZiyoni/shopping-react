@@ -35,8 +35,8 @@ function Cart_list({ cartlist,setCartCount,setCartlist }) {
   function updateCart(productId, cartId, quantity) {
     setShowMessage(productId)
     setLoading(true)
-    // axios.put(`https://shopping-django-1.onrender.com/product/update-cart/${cartId}/`, {
-      axios.put(`http://127.0.0.1:4434/product/update-cart/${cartId}/`, {  
+    axios.put(`https://shopping-django-1.onrender.com/product/update-cart/${cartId}/`, {
+      // axios.put(`http://127.0.0.1:4434/product/update-cart/${cartId}/`, {  
     "id": cartId,
       "products": productId,
       quantity: quantity
