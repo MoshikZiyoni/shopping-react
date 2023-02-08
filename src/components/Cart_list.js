@@ -9,18 +9,18 @@ import { GrUpdate } from "react-icons/gr";
 import AlertDanger from './AlertDanger'
 import AlertSuccessful from './Succsess';
 import ButtonSpinner from './Spinner';
-import { IoBagCheckOutline } from "react-icons/io5";
 import MessageExampleIcon from './MessageExampleIcon';
 
 
-function Cart_list({ cartlist,setCartCount,setCartlist }) {
+
+function Cart_list({ cartlist, setCartCount, setCartlist }) {
   const [refresh, setRefresh] = useState(false)
   // const [cartList, setCartList] = useState(cartlist);
   const [quantity, setQuantity] = useState(1);
   const [showMessage, setShowMessage] = useState(null)
   const [loading, setLoading] = useState(false)
   const [alertMessage, setAlertMessage] = useState(false)
-  const [successfulMessage,setSuccessfulMessage]= useState(false)
+  const [successfulMessage, setSuccessfulMessage] = useState(false)
   const [spinner, setSpinner] = useState(false)
 
   const cardListStyle = {
@@ -32,12 +32,20 @@ function Cart_list({ cartlist,setCartCount,setCartlist }) {
     width: '80%',
 
   };
-  function updateCart(productId, cartId, quantity) {
+
+  useEffect(() => {
+    axios.get('https://shopping-django-1.onrender.com/product/cart-list/')
+
+      .then((response) => setCartlist((response.data) ? response.data :
+        []))
+  }, [])
+
+  function updateCart(productId, cartId, quantity,) {
+    console.log(cartId, '66666666666666666666');
     setShowMessage(productId)
     setLoading(true)
     axios.put(`https://shopping-django-1.onrender.com/product/update-cart/${cartId}/`, {
-      // axios.put(`http://127.0.0.1:4434/product/update-cart/${cartId}/`, {  
-    "id": cartId,
+      "id": cartId,
       "products": productId,
       quantity: quantity
     })
@@ -73,7 +81,7 @@ function Cart_list({ cartlist,setCartCount,setCartlist }) {
   function handleCheckout() {
 
     axios.post('https://shopping-django-1.onrender.com/product/order/', { cartlist: cartlist })
-    // axios.post('http://127.0.0.1:4434/product/order/', { cartlist: cartlist })
+      // axios.post('http://127.0.0.1:4434/product/order/', { cartlist: cartlist })
       .then(response => {
         // alert('Checkout successful');
         setCartlist([]);
@@ -95,12 +103,14 @@ function Cart_list({ cartlist,setCartCount,setCartlist }) {
     axios.delete(`https://shopping-django-1.onrender.com/product/delete-cart/${productId}`)
       // axios.delete(`http://127.0.0.1:5512/product/delete-cart/${productId}`)
       .then(response => {
-        setCartlist(products=>{return products.filter(product=>{ 
-            return product.products.id != productId
+        setCartlist(products => {
+          return products.filter(product => {
+            return product.products.id !== productId
           }
-        )})
+          )
+        })
         setLoading(false)
-        setCartCount(cartcount=>cartcount-1)
+        setCartCount(cartcount => cartcount - 1)
 
         setShowMessage(null)  // reset the showMessage state after the message has been displayed
         // return <div>Successes </div>
@@ -139,19 +149,18 @@ function Cart_list({ cartlist,setCartCount,setCartlist }) {
 
 
         {
-          alertMessage ? <AlertDanger  /> : null
+          alertMessage ? <AlertDanger /> : null
         }
         {
-        successfulMessage ? <AlertSuccessful/> : null
+          successfulMessage ? <AlertSuccessful /> : null
         }
 
         {cartlist.map(product => (
           <Card border="secondary" key={product.id} className="card-hover" style={{ width: '18rem', background: 'powderblue', margin: '0.1rem', padding: '0.1rem' }}>
-            <Card.Img variant="top" src={`https://shopping-django-1.onrender.com/static${product.products.image}`} alt="product image" style={{ height: 300, width: '100%' }}/>
+            <Card.Img variant="top" src={`https://shopping-django-1.onrender.com/static${product.products.image}`} alt="product image" style={{ height: 300, width: '100%' }} />
             <Card.Body>
               <Card.Title style={{ textDecoration: "underline" }}>{product.products.name}</Card.Title>
               <Card.Text>
-                ID: {product.products.id}
                 <br></br>
                 <MdOutlineDescription />{product.products.description}
                 <br></br>
@@ -173,16 +182,19 @@ function Cart_list({ cartlist,setCartCount,setCartlist }) {
                 </div>
               )}
               {/* <Button variant='info' onClick={() => updateCart(product.products.id, product.id, quantity)} style={{ margin: '0.8rem' }}>Update</Button> */}
-              <Button variant='info' onClick={() => {
+              <div onClick={() => {
                 updateCart(product.products.id, product.id, quantity); setSpinner(true)
                 setTimeout(() => {
                   setSpinner(false)
                 }, 1000 * 3)
-
               }
 
+
               }
-                style={{ margin: '0.8rem' }}  >Update</Button>
+                style={{ margin: '0.8rem' }}>
+
+                <Button variant='info'  >Update</Button>
+              </div>
               {loading && <MessageExampleIcon />}
 
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
@@ -195,9 +207,10 @@ function Cart_list({ cartlist,setCartCount,setCartlist }) {
               <div style={{ marginRight: '10px' }}>
                 <MdDeleteForever></MdDeleteForever>
                 <Button variant="danger" onClick={() => {
-                  deleteFromCart(product.products.id); setAlertMessage(true)
+                  deleteFromCart(product.products.id); setSuccessfulMessage(true); setSpinner(true)
                   setTimeout(() => {
-                    setAlertMessage(false)
+                    setSuccessfulMessage(false)
+                    setSpinner(false)
                   }, 1000 * 3)
                 }}>Remove</Button></div>
 
@@ -209,18 +222,18 @@ function Cart_list({ cartlist,setCartCount,setCartlist }) {
       </div>
       <div style={{ textAlign: "center", marginTop: "20px" }}>
         <span style={{ fontSize: "2em", fontWeight: "bold" }}>Total Price: {totalPrice}$</span>
-       
+
         <Button variant="primary" onClick={() => {
-  setSpinner(true);
-  setSuccessfulMessage(true)
-  handleCheckout();
-  setTimeout(() => {
-    setSpinner(false)
-    setSuccessfulMessage(false)
-  }, 1000 * 3)
-}} style={{ marginLeft: "10px" }}>
-  {spinner ? <div style={{ display: 'flex' }}> <ButtonSpinner /> </div> : 'Checkout'}
-</Button>
+          setSpinner(true);
+          setSuccessfulMessage(true)
+          handleCheckout();
+          setTimeout(() => {
+            setSpinner(false)
+            setSuccessfulMessage(false)
+          }, 1000 * 3)
+        }} style={{ marginLeft: "10px" }}>
+          {spinner ? <div style={{ display: 'flex' }}> <ButtonSpinner /> </div> : 'Checkout'}
+        </Button>
 
 
       </div>
