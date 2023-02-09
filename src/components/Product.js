@@ -100,7 +100,7 @@ function Product({ product, setCartlist, setCartCount }) {
                   <br></br>
                   <MdOutlineDescription />{product.description}
                   <br></br>
-                  <ImPriceTag />price: {product.price}$
+                  <ImPriceTag />price: ${product.price}
                   <br></br>
                   <MdDateRange />Create: {product.created}
                   <br></br>

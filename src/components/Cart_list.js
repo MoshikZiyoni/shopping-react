@@ -164,7 +164,7 @@ function Cart_list({ cartlist, setCartCount, setCartlist }) {
                 <br></br>
                 <MdOutlineDescription />{product.products.description}
                 <br></br>
-                <ImPriceTag />Price: {product.products.price}$
+                <ImPriceTag />Price: ${product.products.price}
                 <br></br>
                 <MdDateRange />Create:{product.products.created}
                 <br></br>
