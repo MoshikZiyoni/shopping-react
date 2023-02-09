@@ -45,6 +45,7 @@ function Cart_list({ cartlist, setCartCount, setCartlist }) {
     setShowMessage(productId)
     setLoading(true)
     axios.put(`https://shopping-django-1.onrender.com/product/update-cart/${cartId}/`, {
+      
       "id": cartId,
       "products": productId,
       quantity: quantity

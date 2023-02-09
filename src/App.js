@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import Headers from './components/Headers';
 import logo from './5183000.jpg';
 import './App.css';
-import './style.css'
 import React from 'react'
 import axios from 'axios';
 import Footer from './components/Footer';
@@ -21,47 +20,47 @@ function App() {
   const [product, setProduct] = useState([])
   const [session, setSession] = useState(localStorage.getItem('session'))
 
-  function login(user, pass) {
+  function login(user, pass) {   
     axios.post('https://shopping-django-1.onrender.com/login/', {
-      username: user,
-      password: pass,
+        username: user,
+        password: pass,
     })
-      .then(response => {
-        console.log(response.data);
-        setSession('logged-in')
-        alert('Success')
-        localStorage.setItem('session', 'logged-in')
-        localStorage.setItem('username', user)
+        .then(response => {
+            console.log(response.data);
+            setSession('logged-in')
+            alert('Success')
+            localStorage.setItem('session', 'logged-in')
+            localStorage.setItem('username', user)
 
 
-      })
-      .catch(error => {
-        console.log(error);
-        let status = error.message
-        switch (error.code) {
-          case "ERR_BAD_REQUEST":
-            status = "username or password not correct"
-            break
-          case "ERR_NETWORK":
-            status = "could not reach the server. perhaps it is down?"
-            break
-          case "ERR_BAD_RESPONSE":
-            status = "server is up. but had an error. you can try again in a fews seconds"
-            break
-          default:
-            break
-        }
-        alert("something went wrong: " + status)
-      });
-  }
+        })
+        .catch(error => {
+            console.log(error);
+            let status = error.message
+            switch (error.code) {
+                case "ERR_BAD_REQUEST":
+                    status = "username or password not correct"
+                    break
+                case "ERR_NETWORK":
+                    status = "could not reach the server. perhaps it is down?"
+                    break
+                case "ERR_BAD_RESPONSE":
+                    status = "server is up. but had an error. you can try again in a fews seconds"
+                    break
+                default:
+                    break
+            }
+            alert("something went wrong: " + status)
+        });
+}
 
-  function logout() {
-    axios.get("https://shopping-django-1.onrender.com/logout/")
-    setSession(null)
-    alert('logout successful')
-    localStorage.removeItem('session')
-    localStorage.removeItem('username')
-  }
+function logout() {
+  axios.get("https://shopping-django-1.onrender.com/logout/")
+  setSession(null)
+  alert('logout successful')
+  localStorage.removeItem('session')
+  localStorage.removeItem('username')
+}
 
 
   useEffect(() => {
@@ -73,7 +72,7 @@ function App() {
   const [cartlist, setCartlist] = useState([])
 
   useEffect(() => {
-    axios.get('https://shopping-django-1.onrender.com/product/cart-list/')
+      axios.get('https://shopping-django-1.onrender.com/product/cart-list/')
 
       .then((response) => setCartlist((response.data) ? response.data :
         []))
@@ -91,12 +90,12 @@ function App() {
       .catch(error => {
         console.log(error);
       });
-
+  
     // Add an event listener to listen for changes in the cart items
     document.addEventListener('cartChanged', e => {
       setCartCount(e.detail.cartCount);
     });
-
+  
     // Clean up the event listener when the component unmounts
     return () => {
       document.removeEventListener('cartChanged', e => {
@@ -105,7 +104,7 @@ function App() {
     };
   }, []);
 
-
+  
 
 
 
@@ -113,7 +112,7 @@ function App() {
 
     <BrowserRouter>
 
-      <NavBar cartCount={cartCount} setCartCount={setCartCount} logout={logout} />
+      <NavBar  cartCount={cartCount} setCartCount={setCartCount} logout={logout}/>
 
       <div style={{
         backgroundImage: `url(${logo})`,
@@ -123,7 +122,7 @@ function App() {
         width: "100%",
 
       }} className="App"  >
-        <Headers />
+      <Headers/>
 
         <Routes>
 
