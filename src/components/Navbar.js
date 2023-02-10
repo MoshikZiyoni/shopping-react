@@ -33,9 +33,12 @@ function NavBar({ cartCount, setCartCount, logout }) {
               <div className="cart-right">
               <NavLink to="/cart" className={({ isActive }) => 'moshik-nav-link' + (isActive ? ' selected' : '')}><FaShoppingCart />Cart <span style={cartCount > 0 ? { color: "darkred" } : { color: "black" }} className="carcount">{cartCount}</span>
                 <NavLink style={{ color: 'black', paddingLeft: '30px' }} to="/" onClick={logout}>Logout </NavLink>
-              </NavLink>
               
+              </NavLink>
             </div>
+            <NavLink to="/cart2" className={({ isActive }) => 'moshik-nav-link' + (isActive ? ' selected' : '')}><FaShoppingCart />Cart <span style={cartCount > 0 ? { color: "darkred" } : { color: "black" }} className="carcount">{cartCount}</span>
+                <NavLink style={{ color: 'black', paddingLeft: '30px' }} to="/" onClick={logout}>Logout </NavLink>
+                </NavLink>
           </Nav>
 
         </Container>

@@ -20,7 +20,6 @@ const MessageExampleIcon = ({ loading }) => (
   </Message>
 )
 function Product({ product, setCartlist, setCartCount }) {
-  const [loading, setLoading] = useState(false)
   const [refresh, setRefresh] = useState(false)
   const [showMessage, setShowMessage] = useState(null)  // add this line
   const [spinner, setSpinner] = useState(false)

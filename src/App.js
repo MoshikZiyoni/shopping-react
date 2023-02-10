@@ -10,6 +10,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import NavBar from './components/Navbar';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Cart_list from './components/Cart_list';
+import Cart from './components/Cart';
 import Login from './components/Login';
 import About from './components/About';
 import Product from './components/Product';
@@ -82,7 +83,6 @@ function logout() {
 
   useEffect(() => {
     // Fetch cart items from the backend and update the cartCount state variable
-    // axios.get('https://shopping-django-1.onrender.com/product/cart')
     axios.get('https://shopping-django-1.onrender.com/product/cart/')
       .then(response => {
         setCartCount(response.data.length);
@@ -109,7 +109,7 @@ function logout() {
 
 
   return (
-
+<>
     <BrowserRouter>
 
       <NavBar  cartCount={cartCount} setCartCount={setCartCount} logout={logout}/>
@@ -122,6 +122,7 @@ function logout() {
         width: "100%",
 
       }} className="App"  >
+        
       <Headers/>
 
         <Routes>
@@ -131,6 +132,7 @@ function logout() {
           <Route path='/cart' element={<Cart_list cartlist={cartlist} setCartlist={setCartlist} setCartCount={setCartCount}></Cart_list>}></Route>
           <Route path='/login' element={<Login login={login}></Login>}></Route>
           <Route path='/about' element={<About></About>}></Route>
+          <Route path='/cart2' element={<Cart  cartlist={cartlist} setCartlist={setCartlist} setCartCount={setCartCount}></Cart>}></Route>
           {/* <Route path="*" element={<Product product={product} setCartlist={setCartlist}  />} /> */}
           <Route path="*" />
         </Routes>
@@ -138,7 +140,8 @@ function logout() {
 
       </div>
     </BrowserRouter>
-  );
+    </>
+    );
 }
 
 export default App;
