@@ -8,7 +8,7 @@ function Footer() {
     <div className='footer' style={{
       position: 'fixed',
       bottom: 0,
-      right: '45%',
+      left: '85%',
       width:'200px'
     }}>
       Logged in as: {localStorage.getItem('username')}

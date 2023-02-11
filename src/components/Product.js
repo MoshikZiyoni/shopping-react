@@ -105,7 +105,7 @@ function Product({ product, setCartlist, setCartCount }) {
                   <br></br>
                   <MdDateRange />Updated: {product.updated}
                 </Card.Text>
-                <Button variant="primary" onClick={() => {
+                <Button className='close' variant="primary" onClick={() => {
                   handleAddToCart(product.id)
                   setSpinner(true)
                 }}>Add to cart</Button>

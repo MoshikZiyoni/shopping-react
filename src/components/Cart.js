@@ -37,7 +37,7 @@ function Cart({cartlist, setCartCount, setCartlist}) {
           }
         });
         setTotalPrice(sum);
-      }, [cartlist]);
+      }, [cartlist,refresh]);
       
   function handleCheckout() {
 
@@ -46,6 +46,7 @@ function Cart({cartlist, setCartCount, setCartlist}) {
       .then(response => {
         // alert('Checkout successful');
         setCartlist([]);
+        setCartCount(0);
         setRefresh(prevState => !prevState)
 
       })
@@ -59,7 +60,7 @@ function Cart({cartlist, setCartCount, setCartlist}) {
 
         return (
             <>
-            <div style={cardListStyle}>
+            <div  style={cardListStyle}>
           {
             alertMessage ? <AlertDanger /> : null
           }
@@ -72,10 +73,12 @@ function Cart({cartlist, setCartCount, setCartlist}) {
           
             
         </div>
-        <div style={{ textAlign: "center", marginTop: "20px" }}>
-          <span style={{ fontSize: "2em", fontWeight: "bold" }}>Total Price: {totalPrice}$</span>
+        {
+          cartlist.length === 0 ? null :
+        <div  style={{ textAlign: "center", marginTop: "20px" }}>
+          <span   style={{ fontSize: "2em", fontWeight: "bold" }}>Total Price: {totalPrice}$</span>
   
-          <Button variant="primary" onClick={() => {
+          <Button  variant="pulse gradient-border"  onClick={() => {
             setSpinner(true);
             setSuccessfulMessage(true)
             handleCheckout();
@@ -84,11 +87,10 @@ function Cart({cartlist, setCartCount, setCartlist}) {
               setSuccessfulMessage(false)
             }, 1000 * 3)
           }} style={{ marginLeft: "10px" }}>
-            {spinner ? <div style={{ display: 'flex' }}> <ButtonSpinner /> </div> : 'Checkout'}
+            {spinner ? <div  style={{ display: 'flex' }}> <ButtonSpinner />  </div> : 'Checkout'}
           </Button>
-  
-  
-        </div>
+    
+        </div>}
         </>
         )
     }

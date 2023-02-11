@@ -9,7 +9,7 @@ import { GrUpdate } from "react-icons/gr";
 import AlertDanger from './AlertDanger'
 import AlertSuccessful from './Succsess';
 import ButtonSpinner from './Spinner';
-import React from 'react'
+import React from 'react';
 
 function Cart_list({ product, cartlist, setCartlist, setCartCount }) {
   const [refresh, setRefresh] = useState(false)
@@ -20,6 +20,7 @@ function Cart_list({ product, cartlist, setCartlist, setCartCount }) {
   const [successfulMessage, setSuccessfulMessage] = useState(false)
   const [spinner, setSpinner] = useState(false)
 
+  
   useEffect(() => {
     axios.get('https://shopping-django-1.onrender.com/product/cart-list/')
 
@@ -28,7 +29,6 @@ function Cart_list({ product, cartlist, setCartlist, setCartCount }) {
   }, [])
 
   function updateCart(productId, cartId, quantity,) {
-    console.log(cartId, '66666666666666666666');
     setShowMessage(productId)
     setLoading(true)
     axios.put(`https://shopping-django-1.onrender.com/product/update-cart/${cartId}/`, {
@@ -107,10 +107,10 @@ function Cart_list({ product, cartlist, setCartlist, setCartCount }) {
         }
 
 
-        <Card border="secondary" key={product.id} className="card-hover" style={{ width: '18rem', background: 'powderblue', margin: '0.1rem', padding: '0.1rem' }}>
+        <Card  border="secondary " key={product.id} className="card-hover " style={{ width: '18rem', background: 'powderblue', margin: '0.1rem', padding: '0.1rem' }}>
           <Card.Img variant="top" src={`https://shopping-django-1.onrender.com/static${product.products.image}`} alt="product image" style={{ height: 300, width: '100%' }} />
           <Card.Body>
-            <Card.Title style={{ textDecoration: "underline" }}>{product.products.name}</Card.Title>
+            <Card.Title  style={{ textDecoration: "underline" }}>{product.products.name}</Card.Title>
             <Card.Text>
               <br></br>
               <MdOutlineDescription />{product.products.description}
@@ -133,19 +133,19 @@ function Cart_list({ product, cartlist, setCartlist, setCartCount }) {
             }
             }
               style={{ margin: '0.8rem' }}>
-              <Button variant='info'  >Update</Button>
+              <Button className='pulse' variant='info'  >Update</Button>
             </div>
 
 
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-              <Button variant="danger" onClick={handleMinusClick}>-</Button>
+              <Button variant="danger" className='raise' onClick={handleMinusClick}>-</Button>
               <input type="number" value={quantity} onChange={e => setQuantity(e.target.value)} />
-              <Button onClick={handlePlusClick}>+</Button>
+              <Button className='raise' onClick={handlePlusClick}>+</Button>
             </div>
             <br />
             <div style={{ marginRight: '10px' }}>
               <MdDeleteForever></MdDeleteForever>
-              <Button variant="danger" onClick={() => {
+              <Button variant="danger" className='pulse ' onClick={() => {
                 deleteFromCart(product.products.id); setSuccessfulMessage(true); setSpinner(true)
                 setTimeout(() => {
                   setSuccessfulMessage(false)
@@ -155,9 +155,7 @@ function Cart_list({ product, cartlist, setCartlist, setCartCount }) {
 
           </Card.Body>
         </Card>
-
       </div>
-    
 
     </>
   )

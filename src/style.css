@@ -24,7 +24,7 @@
 }
 .border-animation:after {
   content: "";
-  background: linear-gradient(45deg, #ccc 48.9%, #0170bb 49%);
+  background: linear-gradient(45deg, #ccc 48.9%, black 49%);
   background-size: 300% 300%;
   border-radius: 10px;
   position: absolute;
@@ -259,3 +259,9 @@
 .sky-circle3 {
   animation: fadeInOut 8s 40s ease-in infinite;
 }
+
+
+
+
+
+
