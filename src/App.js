@@ -117,10 +117,10 @@ function logout() {
       <div style={{
         backgroundImage: `url(${logo})`,
         // "backgroundSize": "cover",
-        position: "sticky",
+        position: "absolute",
         minHeight: '92vh',
         width: "100%",
-
+        zIndex: 1,
       }} className="App"  >
         
       <Headers/>

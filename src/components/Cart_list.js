@@ -43,7 +43,10 @@ function Cart_list({ product, cartlist, setCartlist, setCartCount }) {
           setShowMessage(null)
         }, 1000)
         console.log(response, 'Successes', productId);
-        return <div>Successes </div>
+        
+        const x =cartlist.map((product)=>{if (product.products.id==product.products.id) return product.quantity=quantity})
+        console.log(x,'XXXXXXXXXXX');
+        
       })
       .catch(error => {
         setLoading(false)
@@ -52,7 +55,7 @@ function Cart_list({ product, cartlist, setCartlist, setCartCount }) {
           setShowMessage(null)
         }, 1000)
         console.log(error, 'Data not transfer', productId,);
-        return <div>Data not transfer,please try again </div>
+        
       });
   }
 
@@ -126,6 +129,7 @@ function Cart_list({ product, cartlist, setCartlist, setCartCount }) {
             <GrUpdate></GrUpdate>
             <div onClick={() => {
               updateCart(product.products.id, product.id, quantity); setSpinner(true); setSuccessfulMessage(true);
+              console.log(quantity,'quantity');
               setTimeout(() => {
                 setSpinner(false)
                 setSuccessfulMessage(false)
