@@ -116,8 +116,8 @@ function logout() {
 
       <div style={{
         backgroundImage: `url(${logo})`,
-        "backgroundSize": "cover",
-        position: "absolute",
+        // "backgroundSize": "cover",
+        position: "sticky",
         minHeight: '92vh',
         width: "100%",
 

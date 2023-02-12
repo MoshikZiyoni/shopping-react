@@ -156,6 +156,7 @@
 .parachute {
   transform-origin: 430px 100px;
   animation: moveBox 14s 4s linear forwards infinite;
+  
 }
 .parachute {
   animation: parachute 14s 4s linear forwards infinite;

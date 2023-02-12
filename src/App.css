@@ -194,7 +194,7 @@ to {left: 40%;}
 .header .border-animation {
   background-color: white;
   border-radius: 10px;
-  position: relative;
+  position:relative;
 }
 .header .border-animation:after {
   content: "";
