@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { FaShoppingCart } from "react-icons/fa";
 import { useEffect, useState } from 'react';
 import { AiOutlineShop } from "react-icons/ai";
-import { AiFillHome } from "react-icons/ai";
+import { AiFillHome ,AiOutlineLogin} from "react-icons/ai";
 import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
@@ -20,7 +20,15 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-function NavBar({ cartCount, setCartCount, logout }) {
+const NavStyle = {
+  display: 'flex',
+  padding: '0px 15px 0px 15px',
+  alignItems: 'center',
+  flexDirection: 'column'
+}
+
+
+function NavBar({ cartCount, setCartCount, logout, loggedIn }) {
   const [time, setTime] = useState(new Date().toLocaleTimeString());
 
   useEffect(() => {
@@ -37,19 +45,22 @@ function NavBar({ cartCount, setCartCount, logout }) {
 
       <Navbar bg="primary" variant="dark" >
         <Container>
+
           <Nav className="me-auto  " variant='pills'>
-            <NavLink to="/" style={{ display: 'flex', padding: '0px 15px 0px 15px', alignItems: 'center', flexDirection: 'column' }} className={({ isActive }) => 'moshik-nav-link' + (isActive ? ' selected' : '')} >
+            <NavLink to="/" className={({ isActive }) => 'moshik-nav-link' + (isActive ? ' selected' : '')} style={NavStyle} >
+
               <AiFillHome style={{ fontSize: '30px', color: 'black' }} />
+
               Home</NavLink>
-            <NavLink to="/product" style={{ display: 'flex', padding: '0px 15px 0px 15px', alignItems: 'center', flexDirection: 'column' }} className={({ isActive }) => 'moshik-nav-link' + (isActive ? ' selected' : '')} >
+            <NavLink to="/product" style={NavStyle} className={({ isActive }) => 'moshik-nav-link' + (isActive ? ' selected' : '')} >
               <AiOutlineShop style={{ fontSize: '30px', color: 'black' }} />
               Product</NavLink>
-            <NavLink to="/login" className={({ isActive }) => 'moshik-nav-link' + (isActive ? ' selected' : '')} >Login</NavLink>
+            {/* <NavLink to="/login" className={({ isActive }) => 'moshik-nav-link' + (isActive ? ' selected' : '')} >Login</NavLink> */}
             <span className="clock-display" style={{ fontSize: '24px', fontWeight: 'bold', position: 'absolute', left: '50%', transform: 'translate(-50%)' }} >Tel-Aviv GMT {time}  </span >
           </Nav>
 
         </Container>
-        <NavLink to='/cart'>
+        <NavLink to='/cart' style={NavStyle}>
           <IconButton aria-label="cart">
             Cart
             <StyledBadge badgeContent={cartCount == 0 ? '0' : cartCount} color="secondary">
@@ -58,8 +69,17 @@ function NavBar({ cartCount, setCartCount, logout }) {
             </StyledBadge>
           </IconButton>
         </NavLink>
-        <NavLink style={{ color: 'black', paddingLeft: '30px' }} to="/" onClick={logout}>Logout </NavLink>
-
+        
+        {loggedIn ? (
+          <NavLink style={{ color: 'black' }} to="/" onClick={logout}>
+            <AiOutlineLogin/>
+            Logout
+          </NavLink>
+        ) : (
+          <NavLink style={{ color: 'black' }} to="/login">
+            Login
+          </NavLink>
+        )}
 
       </Navbar>
 

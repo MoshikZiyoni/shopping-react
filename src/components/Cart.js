@@ -23,9 +23,15 @@ function Cart({cartlist, setCartCount, setCartlist}) {
     
       };
     
+      // useEffect(() => {
+      //   axios.get('https://shopping-django-1.onrender.com/product/cart-list/')
+    
+      //     .then((response) => setCartlist((response.data) ? response.data :
+      //       []))
+      // }, [])
+
 
       const [totalPrice, setTotalPrice] = useState(0);
-
       useEffect(() => {
         if (!cartlist) {
           return;

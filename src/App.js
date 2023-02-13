@@ -20,6 +20,7 @@ import Product from './components/Product';
 function App() {
   const [product, setProduct] = useState([])
   const [session, setSession] = useState(localStorage.getItem('session'))
+  const [loggedIn, setLoggedIn] = useState(localStorage.getItem('session') === 'logged-in');
 
   function login(user, pass) {   
     axios.post('https://shopping-django-1.onrender.com/login/', {
@@ -32,7 +33,7 @@ function App() {
             alert('Success')
             localStorage.setItem('session', 'logged-in')
             localStorage.setItem('username', user)
-
+            setLoggedIn(true); 
 
         })
         .catch(error => {
@@ -61,6 +62,8 @@ function logout() {
   alert('logout successful')
   localStorage.removeItem('session')
   localStorage.removeItem('username')
+  setLoggedIn(false); 
+
 }
 
 
@@ -112,7 +115,7 @@ function logout() {
 <>
     <BrowserRouter>
 
-      <NavBar  cartCount={cartCount} setCartCount={setCartCount} logout={logout}/>
+      <NavBar  cartCount={cartCount} setCartCount={setCartCount} logout={logout} loggedIn={loggedIn}/>
 
       <div style={{
         backgroundImage: `url(${logo})`,

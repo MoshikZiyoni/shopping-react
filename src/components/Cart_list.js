@@ -13,7 +13,7 @@ import React from 'react';
 
 function Cart_list({ product, cartlist, setCartlist, setCartCount }) {
   const [refresh, setRefresh] = useState(false)
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(product.quantity);
   const [showMessage, setShowMessage] = useState(null)
   const [loading, setLoading] = useState(false)
   const [alertMessage, setAlertMessage] = useState(false)
@@ -44,9 +44,18 @@ function Cart_list({ product, cartlist, setCartlist, setCartCount }) {
         }, 1000)
         console.log(response, 'Successes', productId);
         
-        const x =cartlist.map((product)=>{if (product.products.id==product.products.id) return product.quantity=quantity})
-        console.log(x,'XXXXXXXXXXX');
-        
+        const updatedCartlist = cartlist.map(product => {
+          if (product.products.id === productId) {
+            return {
+              ...product,
+              quantity: quantity,
+            };
+          } else {
+            return product;
+          }
+        });
+        // update the state of cartlist with the updatedCartlist
+        setCartlist(updatedCartlist);
       })
       .catch(error => {
         setLoading(false)
@@ -143,7 +152,7 @@ function Cart_list({ product, cartlist, setCartlist, setCartCount }) {
 
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <Button variant="danger" className='raise' onClick={handleMinusClick}>-</Button>
-              <input type="number" value={quantity} onChange={e => setQuantity(e.target.value)} />
+              <input type="text" value={quantity} onChange={e => setQuantity(e.target.value)} />
               <Button className='raise' onClick={handlePlusClick}>+</Button>
             </div>
             <br />
