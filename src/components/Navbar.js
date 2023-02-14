@@ -2,14 +2,14 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { NavLink } from 'react-router-dom';
-import { FaShoppingCart } from "react-icons/fa";
 import { useEffect, useState } from 'react';
 import { AiOutlineShop } from "react-icons/ai";
-import { AiFillHome ,AiOutlineLogin} from "react-icons/ai";
+import { AiFillHome, AiOutlineLogin ,AiFillClockCircle} from "react-icons/ai";
 import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import '../style.css';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -31,6 +31,8 @@ const NavStyle = {
 function NavBar({ cartCount, setCartCount, logout, loggedIn }) {
   const [time, setTime] = useState(new Date().toLocaleTimeString());
 
+  
+
   useEffect(() => {
     const interval = setInterval(() => {
       setTime(new Date().toLocaleTimeString());
@@ -43,7 +45,7 @@ function NavBar({ cartCount, setCartCount, logout, loggedIn }) {
     <>
 
 
-      <Navbar bg="primary" variant="dark" >
+      <Navbar bg="primary" variant="dark"  >
         <Container>
 
           <Nav className="me-auto  " variant='pills'>
@@ -53,30 +55,33 @@ function NavBar({ cartCount, setCartCount, logout, loggedIn }) {
 
               Home</NavLink>
             <NavLink to="/product" style={NavStyle} className={({ isActive }) => 'moshik-nav-link' + (isActive ? ' selected' : '')} >
-              <AiOutlineShop style={{ fontSize: '30px', color: 'black' }} />
+              <AiOutlineShop style={{ fontSize: '32px', color: 'black' }} />
               Product</NavLink>
             {/* <NavLink to="/login" className={({ isActive }) => 'moshik-nav-link' + (isActive ? ' selected' : '')} >Login</NavLink> */}
-            <span className="clock-display" style={{ fontSize: '24px', fontWeight: 'bold', position: 'absolute', left: '50%', transform: 'translate(-50%)' }} >Tel-Aviv GMT {time}  </span >
+            <span className="clock-display" style={{ fontSize: '24px', fontWeight: 'bold', position: 'absolute', left: '50%', transform: 'translate(-50%)' }} >
+              <AiFillClockCircle/>
+              Tel-Aviv GMT {time}  </span >
           </Nav>
 
         </Container>
         <NavLink to='/cart' style={NavStyle}>
           <IconButton aria-label="cart">
-            Cart
-            <StyledBadge badgeContent={cartCount == 0 ? '0' : cartCount} color="secondary">
+            <StyledBadge badgeContent={cartCount === 0 ? '0' : cartCount} color="secondary">
               <ShoppingCartIcon />
 
             </StyledBadge>
           </IconButton>
         </NavLink>
-        
+
         {loggedIn ? (
-          <NavLink style={{ color: 'black' }} to="/" onClick={logout}>
-            <AiOutlineLogin/>
+          <NavLink  style={{ color: 'black' }} to="/" onClick={logout}>
+            <AiOutlineLogin />
             Logout
           </NavLink>
         ) : (
-          <NavLink style={{ color: 'black' }} to="/login">
+          <NavLink  style={{ color: 'black' }} to="/login">
+            <AiOutlineLogin />
+
             Login
           </NavLink>
         )}

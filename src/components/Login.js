@@ -16,7 +16,7 @@ function LoginPage({ login }) {
                 {/* <h3 className="mb-5">Sign in</h3> */}
                 <form onSubmit={formLogin}>
                   <div className="form-outline mb-4">
-                    <input type="text"  className="form-control form-control-lg" name="username" placeholder="Enter Username" />
+                    <input type="text" className="form-control form-control-lg" name="username" placeholder="Enter Username" />
                     <label className="form-label" >
                       Username
                     </label>
@@ -24,7 +24,7 @@ function LoginPage({ login }) {
                   <div className="form-outline mb-4">
                     <input
                       type="password"
-                    //   id="typePasswordX-2"
+                      //   id="typePasswordX-2"
                       className="form-control form-control-lg"
                       name="password"
                       placeholder="Enter Password"
@@ -41,7 +41,7 @@ function LoginPage({ login }) {
                   </div>
                   <button className="btn btn-primary btn-lg btn-block" type="submit">
                     Login
-                    
+
                   </button>
                   <hr className="my-4" />
                   {/* <button
@@ -65,7 +65,7 @@ function LoginPage({ login }) {
         </div>
       </div>
     </section>
-    
+
   );
 }
 

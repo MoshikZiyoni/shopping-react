@@ -4,10 +4,10 @@ function Headers() {
   const location = useLocation();
 
   return (
-    
+
     <>
-    
-      {location.pathname === '/' &&  <div className="store-container">
+
+      {location.pathname === '/' && <div className="store-container">
         <div className="border-animation">
           <svg role="img" xmlns="http://www.w3.org/2000/svg" id="store" viewBox="130 0 1230 930">
             <title xmlLang="en">Store animation loader</title>
@@ -177,14 +177,14 @@ function Headers() {
           </svg>
         </div>
       </div>
-}
+      }
     </>
   )
 }
 
 export default Headers
 
-{/* <div  classNameName='header'>   */}
-    
-      {/* {location.pathname === '/' && <h3 classNameName='text-center movement change-color-animate'  >Welcome to our website.<br></br>You can select a porduct and add to your cart </h3>}  */}
-    {/* </div> */}
+{/* <div  classNameName='header'>   */ }
+
+{/* {location.pathname === '/' && <h3 classNameName='text-center movement change-color-animate'  >Welcome to our website.<br></br>You can select a porduct and add to your cart </h3>}  */ }
+{/* </div> */ }

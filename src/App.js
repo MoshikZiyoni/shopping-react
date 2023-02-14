@@ -9,62 +9,61 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import NavBar from './components/Navbar';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Cart_list from './components/Cart_list';
 import Cart from './components/Cart';
 import Login from './components/Login';
 import About from './components/About';
 import Product from './components/Product';
 
-
-
 function App() {
   const [product, setProduct] = useState([])
   const [session, setSession] = useState(localStorage.getItem('session'))
   const [loggedIn, setLoggedIn] = useState(localStorage.getItem('session') === 'logged-in');
+  const [cartlist, setCartlist] = useState([])
+  const [cartCount, setCartCount] = useState(0);
 
-  function login(user, pass) {   
+  function login(user, pass) {
     axios.post('https://shopping-django-1.onrender.com/login/', {
-        username: user,
-        password: pass,
+      username: user,
+      password: pass,
     })
-        .then(response => {
-            console.log(response.data);
-            setSession('logged-in')
-            alert('Success')
-            localStorage.setItem('session', 'logged-in')
-            localStorage.setItem('username', user)
-            setLoggedIn(true); 
+      .then(response => {
+        console.log(response.data);
+        setSession('logged-in')
+        alert('Success')
+        localStorage.setItem('session', 'logged-in')
+        localStorage.setItem('username', user)
+        setLoggedIn(true);
+        return <redirect to="/" />;
+      })
+      .catch(error => {
+        console.log(error);
+        let status = error.message
+        switch (error.code) {
+          case "ERR_BAD_REQUEST":
+            status = "username or password not correct"
+            break
+          case "ERR_NETWORK":
+            status = "could not reach the server. perhaps it is down?"
+            break
+          case "ERR_BAD_RESPONSE":
+            status = "server is up. but had an error. you can try again in a fews seconds"
+            break
+          default:
+            break
+        }
+        alert("something went wrong: " + status)
+      });
+  }
 
-        })
-        .catch(error => {
-            console.log(error);
-            let status = error.message
-            switch (error.code) {
-                case "ERR_BAD_REQUEST":
-                    status = "username or password not correct"
-                    break
-                case "ERR_NETWORK":
-                    status = "could not reach the server. perhaps it is down?"
-                    break
-                case "ERR_BAD_RESPONSE":
-                    status = "server is up. but had an error. you can try again in a fews seconds"
-                    break
-                default:
-                    break
-            }
-            alert("something went wrong: " + status)
-        });
-}
+  function logout() {
+    axios.get("https://shopping-django-1.onrender.com/logout/")
+    setSession(null)
+    alert('logout successful')
+    localStorage.removeItem('session')
+    localStorage.removeItem('username')
+    setLoggedIn(false);
 
-function logout() {
-  axios.get("https://shopping-django-1.onrender.com/logout/")
-  setSession(null)
-  alert('logout successful')
-  localStorage.removeItem('session')
-  localStorage.removeItem('username')
-  setLoggedIn(false); 
-
-}
+  }
 
 
   useEffect(() => {
@@ -73,16 +72,7 @@ function logout() {
         []))
   }, [])
 
-  const [cartlist, setCartlist] = useState([])
 
-  useEffect(() => {
-      axios.get('https://shopping-django-1.onrender.com/product/cart-list/')
-
-      .then((response) => setCartlist((response.data) ? response.data :
-        []))
-  }, [])
-
-  const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
     // Fetch cart items from the backend and update the cartCount state variable
@@ -93,12 +83,12 @@ function logout() {
       .catch(error => {
         console.log(error);
       });
-  
+
     // Add an event listener to listen for changes in the cart items
     document.addEventListener('cartChanged', e => {
       setCartCount(e.detail.cartCount);
     });
-  
+
     // Clean up the event listener when the component unmounts
     return () => {
       document.removeEventListener('cartChanged', e => {
@@ -107,42 +97,40 @@ function logout() {
     };
   }, []);
 
-  
-
 
 
   return (
-<>
-    <BrowserRouter>
+    <>
+      <BrowserRouter>
 
-      <NavBar  cartCount={cartCount} setCartCount={setCartCount} logout={logout} loggedIn={loggedIn}/>
+        <NavBar cartCount={cartCount} setCartCount={setCartCount} logout={logout} loggedIn={loggedIn} />
 
-      <div style={{
-        backgroundImage: `url(${logo})`,
-        // "backgroundSize": "cover",
-        position: "absolute",
-        minHeight: '92vh',
-        width: "100%",
-        zIndex: 1,
-      }} className="App"  >
-        
-      <Headers/>
+        <div style={{
+          backgroundImage: `url(${logo})`,
+          // "backgroundSize": "cover",
+          position: "absolute",
+          minHeight: '92vh',
+          width: "100%",
+          zIndex: 1,
+        }} className="App"  >
 
-        <Routes>
+          <Headers />
 
-          <Route exact path='/' ></Route>
-          <Route path='/product' element={<Product product={product} setCartCount={setCartCount} setCartlist={setCartlist}  ></Product>}></Route>
-          <Route path='/login' element={<Login login={login}></Login>}></Route>
-          <Route path='/about' element={<About></About>}></Route>
-          <Route path='/cart' element={<Cart  cartlist={cartlist} setCartlist={setCartlist} setCartCount={setCartCount}></Cart>}></Route>
-          <Route path="*" />
-        </Routes>
-        <Footer />
+          <Routes>
 
-      </div>
-    </BrowserRouter>
+            <Route exact path='/' ></Route>
+            <Route path='/product' element={<Product product={product} setCartCount={setCartCount} setCartlist={setCartlist}  ></Product>}></Route>
+            <Route path='/login' element={<Login login={login}></Login>}></Route>
+            <Route path='/about' element={<About></About>}></Route>
+            <Route path='/cart' element={<Cart cartlist={cartlist} setCartlist={setCartlist} setCartCount={setCartCount}></Cart>}></Route>
+            <Route path="*" />
+          </Routes>
+          <Footer />
+
+        </div>
+      </BrowserRouter>
     </>
-    );
+  );
 }
 
 export default App;

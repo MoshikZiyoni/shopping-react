@@ -30,7 +30,7 @@ function Product({ product, setCartlist, setCartCount }) {
   function handleAddToCart(productId) {
     setShowMessage(productId)
     setSpinner(true)
-    const product = { products: productId, quantity: 1 }
+    const product = { products: productId, quantity: 1, user: localStorage.getItem('username') }
     axios.post(`https://shopping-django-1.onrender.com/product/cart-list/`, product)
       .then(response => {
         axios.get(`https://shopping-django-1.onrender.com/product/api/${productId}`)
@@ -77,8 +77,9 @@ function Product({ product, setCartlist, setCartCount }) {
   };
 
   return (
-
+    
     <div style={cardListStyle}>
+      
       {spinner ? <div style={{ display: 'flex' }}> <ButtonSpinner /></div> : null}
       {
         successfulMessage ? <AlertSuccessful /> : null
@@ -86,6 +87,7 @@ function Product({ product, setCartlist, setCartCount }) {
       {
         alertMessage ? <AlertDanger /> : null
       }
+      
       {product.map((product) => {
         // console.log(product);
         return (
@@ -94,9 +96,9 @@ function Product({ product, setCartlist, setCartCount }) {
               <Card.Img variant="top" src={`https://shopping-django-1.onrender.com/static${product.image}`} alt="product image" style={{ height: 300, width: '100%' }} />
               <Card.Body>
                 <Card.Title style={{ textDecoration: "underline" }}>{product.name}</Card.Title>
-                <Card.Text>
-                  ID: {product.id}
-                  <br></br>
+                <Card.Text style={{ fontStyle: 'oblique' }}>
+
+
                   <MdOutlineDescription />{product.description}
                   <br></br>
                   <ImPriceTag />price: ${product.price}

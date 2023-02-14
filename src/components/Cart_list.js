@@ -36,6 +36,7 @@ function Cart_list({ product, cartlist, setCartlist, setCartCount }) {
       "id": cartId,
       "products": productId,
       quantity: quantity
+
     })
       .then(response => {
         setLoading(true)
@@ -123,8 +124,8 @@ function Cart_list({ product, cartlist, setCartlist, setCartCount }) {
           <Card.Img variant="top" src={`https://shopping-django-1.onrender.com/static${product.products.image}`} alt="product image" style={{ height: 300, width: '100%' }} />
           <Card.Body>
             <Card.Title style={{ textDecoration: "underline" }}>{product.products.name}</Card.Title>
-            <Card.Text>
-              <br></br>
+            <Card.Text style={{ fontStyle: 'oblique' }}>
+
               <MdOutlineDescription />{product.products.description}
               <br></br>
               <ImPriceTag />Price: ${product.products.price}
