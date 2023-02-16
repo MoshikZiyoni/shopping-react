@@ -13,6 +13,7 @@ import Cart from './components/Cart';
 import Login from './components/Login';
 import About from './components/About';
 import Product from './components/Product';
+import Error404 from './components/Error404';
 
 function App() {
   const [product, setProduct] = useState([])
@@ -109,7 +110,7 @@ function App() {
           backgroundImage: `url(${logo})`,
           // "backgroundSize": "cover",
           position: "absolute",
-          minHeight: '92vh',
+          // minHeight: '92vh',
           width: "100%",
           zIndex: 1,
         }} className="App"  >
@@ -123,7 +124,7 @@ function App() {
             <Route path='/login' element={<Login login={login}></Login>}></Route>
             <Route path='/about' element={<About></About>}></Route>
             <Route path='/cart' element={<Cart cartlist={cartlist} setCartlist={setCartlist} setCartCount={setCartCount}></Cart>}></Route>
-            <Route path="*" />
+            <Route path="*"  element={<Error404/>}/>
           </Routes>
           <Footer />
 

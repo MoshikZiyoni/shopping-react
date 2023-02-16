@@ -8,9 +8,10 @@ function Headers() {
     <>
 
       {location.pathname === '/' && <div className="store-container">
+        <div className='fish'><span style={{position:'fixed'}}/></div>
         <div className="border-animation">
           <svg role="img" xmlns="http://www.w3.org/2000/svg" id="store" viewBox="130 0 1230 930">
-            <title xmlLang="en">Store animation loader</title>
+            {/* <title xmlLang="en">Store animation loader</title> */}
             <defs>
               <filter id="f1">
                 <feGaussianBlur in="SourceGraphic" stdDeviation="0,4" />

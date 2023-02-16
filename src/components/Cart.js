@@ -58,7 +58,14 @@ function Cart({ cartlist, setCartCount, setCartlist }) {
 
   return (
     <>
-      <div style={cardListStyle}>
+      <div style={cardListStyle} >
+      <div className="clouds2">
+        
+        <div />
+        <div />
+        <div />
+      </div>
+      
         {
           alertMessage ? <AlertDanger /> : null
         }

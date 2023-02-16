@@ -78,7 +78,14 @@ function Product({ product, setCartlist, setCartCount }) {
 
   return (
     
-    <div style={cardListStyle}>
+     <div style={cardListStyle} className="fish"><span />
+     <div className="clouds1">
+        
+        <div />
+        <div />
+        <div />
+      </div>
+
       
       {spinner ? <div style={{ display: 'flex' }}> <ButtonSpinner /></div> : null}
       {
@@ -89,15 +96,16 @@ function Product({ product, setCartlist, setCartCount }) {
       }
       
       {product.map((product) => {
-        // console.log(product);
         return (
+          
           <div key={product.id} style={{ margin: '0.1rem' }}>
+          
             <Card border="secondary" className="card-hover" style={{ width: '18rem', background: 'powderblue', margin: '0.1rem', padding: '0.1rem' }}>
               <Card.Img variant="top" src={`https://shopping-django-1.onrender.com/static${product.image}`} alt="product image" style={{ height: 300, width: '100%' }} />
               <Card.Body>
-                <Card.Title style={{ textDecoration: "underline" }}>{product.name}</Card.Title>
-                <Card.Text style={{ fontStyle: 'oblique' }}>
-
+                <Card.Title style={{ textDecoration: "underline" }}>{product.name} </Card.Title>
+                <Card.Text style={{ fontFamily:'cursive',fontStyle: 'oblique' }}>
+                
 
                   <MdOutlineDescription />{product.description}
                   <br></br>
@@ -120,6 +128,7 @@ function Product({ product, setCartlist, setCartCount }) {
       })}
 
     </div>
+    
   )
 }
 export default Product

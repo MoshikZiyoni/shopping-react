@@ -4,7 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import { NavLink } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { AiOutlineShop } from "react-icons/ai";
-import { AiFillHome, AiOutlineLogin ,AiFillClockCircle} from "react-icons/ai";
+import { AiFillHome, AiOutlineLogin, AiFillClockCircle } from "react-icons/ai";
 import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
@@ -25,13 +25,15 @@ const NavStyle = {
   padding: '0px 15px 0px 15px',
   alignItems: 'center',
   flexDirection: 'column'
+
+
 }
 
 
 function NavBar({ cartCount, setCartCount, logout, loggedIn }) {
   const [time, setTime] = useState(new Date().toLocaleTimeString());
 
-  
+
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -46,21 +48,31 @@ function NavBar({ cartCount, setCartCount, logout, loggedIn }) {
 
 
       <Navbar bg="primary" variant="dark"  >
+
         <Container>
 
           <Nav className="me-auto  " variant='pills'>
             <NavLink to="/" className={({ isActive }) => 'moshik-nav-link' + (isActive ? ' selected' : '')} style={NavStyle} >
 
-              <AiFillHome style={{ fontSize: '30px', color: 'black' }} />
 
+
+              <AiFillHome style={{ fontSize: '30px', color: 'black' }} />
               Home</NavLink>
+            <div className='birds2' />
+            <div className="clouds2">
+        
+        <div />
+        <div />
+        <div />
+      </div>
+            <div className='sun2 ' />
             <NavLink to="/product" style={NavStyle} className={({ isActive }) => 'moshik-nav-link' + (isActive ? ' selected' : '')} >
               <AiOutlineShop style={{ fontSize: '32px', color: 'black' }} />
               Product</NavLink>
-            {/* <NavLink to="/login" className={({ isActive }) => 'moshik-nav-link' + (isActive ? ' selected' : '')} >Login</NavLink> */}
-            <span className="clock-display" style={{ fontSize: '24px', fontWeight: 'bold', position: 'absolute', left: '50%', transform: 'translate(-50%)' }} >
+
+            {/* <span className="clock-display" style={{ fontSize: '24px', fontWeight: 'bold', position: 'absolute', left: '50%', transform: 'translate(-50%)' }} >
               <AiFillClockCircle/>
-              Tel-Aviv GMT {time}  </span >
+              Tel-Aviv GMT {time}  </span > */}
           </Nav>
 
         </Container>
@@ -74,12 +86,12 @@ function NavBar({ cartCount, setCartCount, logout, loggedIn }) {
         </NavLink>
 
         {loggedIn ? (
-          <NavLink  style={{ color: 'black' }} to="/" onClick={logout}>
+          <NavLink style={{ color: 'black' }} to="/" onClick={logout}>
             <AiOutlineLogin />
             Logout
           </NavLink>
         ) : (
-          <NavLink  style={{ color: 'black' }} to="/login">
+          <NavLink style={{ color: 'black' }} to="/login">
             <AiOutlineLogin />
 
             Login
