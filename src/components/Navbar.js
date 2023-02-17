@@ -10,6 +10,7 @@ import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import '../style.css';
+import Car from './Car';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -50,7 +51,7 @@ function NavBar({ cartCount, setCartCount, logout, loggedIn }) {
       <Navbar bg="primary" variant="dark"  >
 
         <Container>
-
+        <Car/>
           <Nav className="me-auto  " variant='pills'>
             <NavLink to="/" className={({ isActive }) => 'moshik-nav-link' + (isActive ? ' selected' : '')} style={NavStyle} >
 
@@ -60,11 +61,11 @@ function NavBar({ cartCount, setCartCount, logout, loggedIn }) {
               Home</NavLink>
             <div className='birds2' />
             <div className="clouds2">
-        
         <div />
         <div />
         <div />
       </div>
+      
             <div className='sun2 ' />
             <NavLink to="/product" style={NavStyle} className={({ isActive }) => 'moshik-nav-link' + (isActive ? ' selected' : '')} >
               <AiOutlineShop style={{ fontSize: '32px', color: 'black' }} />
