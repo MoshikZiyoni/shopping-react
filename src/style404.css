@@ -652,9 +652,7 @@
     stroke-miterlimit: 10;
   }
   
-  body {
-    background-color: #3ABC98;
-  }
+  
   
   #wrapper {
     position: absolute;
@@ -670,17 +668,16 @@
     position: absolute;
     width: 100%;
     bottom: 30px;
-     animation: carbody 1s linear infinite;
-     
-     
+    animation: carbody 1s linear infinite;
     -webkit-animation: carbody 1s linear infinite;
   }
- 
+  
   #wheel .wheel {
     position: absolute;
     width: 100%;
     bottom: 30px;
   }
+  
   #wheel .wheel-back {
     z-index: -1;
   }
@@ -700,6 +697,54 @@
     width: 100%;
     z-index: -2;
   }
+  
+  /*** Animation ***/
+  @keyframes carbody {
+    0% {
+      bottom: 30px;
+    }
+    60% {
+      bottom: 35px;
+    }
+    80% {
+      bottom: 37px;
+    }
+  }
+  
+  @-webkit-keyframes carbody {
+    0% {
+      bottom: 30px;
+    }
+    60% {
+      bottom: 35px;
+    }
+    80% {
+      bottom: 37px;
+    }
+  }
+  
+  @keyframes smoke {
+    from {
+      right: 30px;
+    }
+    to {
+      right: -80px;
+      transform: scale(5);
+      opacity: 0.2;
+    }
+  }
+  
+  @-webkit-keyframes smoke {
+    from {
+      right: 30px;
+    }
+    to {
+      right: -80px;
+      transform: scale(5);
+      opacity: 0.2;
+    }
+  }
+  
   @media only screen and (max-width: 768px) {
     #wrapper {
       width: 80px;
@@ -730,48 +775,9 @@
     #smoke {
       top: 68px;
     }
+    /* hide the car on mobile */
+    #car-body, #wheel .wheel {
+      display: none;
+    }
   }
   
-  /***** Animation *****/
-  @keyframes carbody {
-    0% {
-      bottom: 30px;
-    }
-    60% {
-      bottom: 35px;
-    }
-    80% {
-      bottom: 37px;
-    }
-  }
-  @-webkit-keyframes carbody {
-    0% {
-      bottom: 30px;
-    }
-    60% {
-      bottom: 35px;
-    }
-    80% {
-      bottom: 37px;
-    }
-  }
-  @keyframes smoke {
-    from {
-      right: 30px;
-    }
-    to {
-      right: -80px;
-      transform: scale(5);
-      opacity: 0.2;
-    }
-  }
-  @-webkit-keyframes smoke {
-    from {
-      right: 30px;
-    }
-    to {
-      right: -80px;
-      transform: scale(5);
-      opacity: 0.2;
-    }
-  }
