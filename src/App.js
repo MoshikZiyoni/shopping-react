@@ -24,7 +24,7 @@ function App() {
   const [cartCount, setCartCount] = useState(0);
 
   function login(user, pass) {
-    axios.post('https://shopping-django-1.onrender.com/login/', {
+    axios.post('http://127.0.0.1:4434/login/', {
       username: user,
       password: pass,
     })
@@ -35,7 +35,7 @@ function App() {
         localStorage.setItem('session', 'logged-in')
         localStorage.setItem('username', user)
         setLoggedIn(true);
-        return <redirect to="/" />;
+        window.location.replace('/');
       })
       .catch(error => {
         console.log(error);

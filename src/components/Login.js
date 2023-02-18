@@ -8,23 +8,30 @@ function LoginPage({ login }) {
   }
 
   return (
-    <section className="vh-100" style={{ backgroundColor: '#508bfc' }}>
-      <div className="container py-5 h-100">
-        <div className="row d-flex justify-content-center align-items-center h-100">
+    <div >
+      
+      <div className='birds'></div>
+      <div className="clouds1">
+              <div />
+              <div />
+              <div />
+            </div>
+    <section  className='falling'>
+      <div className="container py-5 h-100 " >
+        <div className="row d-flex justify-content-center align-items-center h-100 ">
           <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-            <div className="card shadow-2-strong" style={{ borderRadius: '1rem' }}>
+            <div className="card shadow-2-strong border-animation " style={{ borderRadius: '1rem' }}>
               <div className="card-body p-5 text-center">
                 <form onSubmit={formLogin}>
                   <div className="form-outline mb-4">
                     <input type="text" className="form-control form-control-lg" name="username" placeholder="Enter Username" />
-                    <label className="form-label" >
+                    <label className="form-label " >
                       Username
                     </label>
                   </div>
                   <div className="form-outline mb-4">
                     <input
                       type="password"
-                      //   id="typePasswordX-2"
                       className="form-control form-control-lg"
                       name="password"
                       placeholder="Enter Password"
@@ -43,6 +50,9 @@ function LoginPage({ login }) {
                     Login
 
                   </button>
+                  <br></br>
+                  <h3>New here?</h3>
+                  <Link className="btn btn-success btn-lg btn-block" to='/register'>Sign up</Link>
                   <hr className="my-4" />
                   {/* <button
                     className="btn btn-lg btn-block btn-primary"
@@ -59,16 +69,15 @@ function LoginPage({ login }) {
                     <i className="fab fa-facebook-f me-2"></i> Sign in with Facebook
                   </button> */}
                 </form>
-                <Link to='/register'>Register</Link>
               </div>
             </div>
-            
+
           </div>
         </div>
       </div>
-      
-    </section>
 
+    </section>
+    </div>
   );
 }
 
