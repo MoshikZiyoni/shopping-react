@@ -2,7 +2,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import 'bootstrap/dist/css/bootstrap.css';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { MdDateRange, MdOutlineDescription, MdDeleteForever } from "react-icons/md";
 import { ImPriceTag } from "react-icons/im";
 import { GrUpdate } from "react-icons/gr";
@@ -12,7 +12,6 @@ import ButtonSpinner from './Spinner';
 import React from 'react';
 
 function Cart_list({ product, cartlist, setCartlist, setCartCount }) {
-  const [refresh, setRefresh] = useState(false)
   const [quantity, setQuantity] = useState(product.quantity);
   const [showMessage, setShowMessage] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -21,12 +20,7 @@ function Cart_list({ product, cartlist, setCartlist, setCartCount }) {
   const [spinner, setSpinner] = useState(false)
 
 
-  useEffect(() => {
-    axios.get('https://shopping-django-1.onrender.com/product/cart-list/')
 
-      .then((response) => setCartlist((response.data) ? response.data :
-        []))
-  }, [])
 
   function updateCart(productId, cartId, quantity,) {
     setShowMessage(productId)
@@ -91,20 +85,15 @@ function Cart_list({ product, cartlist, setCartlist, setCartCount }) {
           }
           )
         })
-        setLoading(false)
         setCartCount(cartcount => cartcount - 1)
 
-        setShowMessage(null)
       })
       .catch(error => {
-        setLoading(false)
-        setShowMessage(null)
+        alert('Failed')
       });
   }
 
-  if (!Array.isArray(cartlist) || !cartlist.length) {
-    return <div>Cart is empty</div>
-  }
+ 
   return (
     <>
       {spinner ? <div style={{ display: 'flex' }}> <ButtonSpinner /></div> : null}
@@ -121,7 +110,7 @@ function Cart_list({ product, cartlist, setCartlist, setCartCount }) {
 
 
         <Card border="secondary " key={product.id} className="card-hover " style={{ width: '18rem', background: 'powderblue', margin: '0.1rem', padding: '0.1rem' }}>
-          <Card.Img variant="top" src={`https://shopping-django-1.onrender.com/static${product.products.image}`} alt="product image" style={{ height: 300, width: '100%' }} />
+          <Card.Img variant="top" src={`https://shopping-django-1.onrender.com/static${product.products.image}`} alt="product image" style={{ height: 240, width: '100%' }} />
           <Card.Body>
             <Card.Title style={{ textDecoration: "underline" }}>{product.products.name}</Card.Title>
             <Card.Text style={{ fontStyle: 'oblique' }}>

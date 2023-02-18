@@ -782,3 +782,232 @@
     }
   }
   
+
+
+
+  body {
+    background-image: linear-gradient(#d4ffba, #9dfffb);
+    min-height: 100vh;
+}
+  .sun-container {
+    position: relative;
+    top: 180px;
+    margin: auto;
+    width: 160px;
+    height: 160px;
+}
+.ray-container {
+    position: relative;
+    top: 4.8px;
+    left: 4.8px;
+}
+.ray-inner {
+    background-color: #ff8100;
+    width: 150.4px;
+    height: 150.4px;
+    border-radius: 3px;
+    animation-name: rayChange;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+    transform-origin: center center;
+}
+.ray {
+    position: absolute;
+}
+.ray:nth-child(1) {
+    transform: rotate(45deg);
+}
+.ray:nth-child(1) .ray-inner {
+    animation-delay: 0s;
+}
+.ray:nth-child(2) {
+    transform: rotate(75deg);
+}
+.ray:nth-child(2) .ray-inner {
+    animation-delay: 0.45s;
+}
+.ray:nth-child(3) {
+    transform: rotate(105deg);
+}
+.ray:nth-child(3) .ray-inner {
+    animation-delay: 0.9s;
+}
+.face {
+    width: 160px;
+    height: 160px;
+    background-color: #fff700;
+    position: absolute;
+    border-radius: 50%;
+    margin: auto;
+    box-shadow: inset -3px -3px #ffc800;
+}
+.mouth-container {
+    width: 80px;
+    position: relative;
+    margin: auto;
+    margin-top: 16px;
+    animation-name: mouthMovement;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-timing-function: ease-in-out;
+    transform-origin: center center;
+}
+.mouth {
+    width: 80px;
+    height: 24px;
+    box-sizing: border-box;
+    border-width: 6.6666666667px;
+    border-color: #ff8100;
+    border-style: solid;
+    border-top: 0;
+    border-bottom-left-radius: 50% 100%;
+    border-bottom-right-radius: 50% 100%;
+    animation-name: mouthExpression;
+    animation-duration: 13s;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-timing-function: ease-in-out;
+    transform-origin: center center;
+}
+.eye-container {
+    width: 64px;
+    height: 40px;
+    margin: auto;
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    animation-name: eyeMovement;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-timing-function: ease-in-out;
+    transform-origin: center center;
+}
+.eye {
+    width: 16px;
+    height: 40px;
+    background-color: #ff8100;
+    border-radius: 50%;
+    box-shadow: 1px 1px #b07336;
+    animation-name: blink;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+    transform-origin: center center;
+}
+.eye:after {
+    content: ' ';
+    display: block;
+    width: 8px;
+    height: 16px;
+    border-radius: 50%;
+    margin: 3.3333333333px 0 0 3.3333333333px;
+    background-color: white;
+    animation-name: eyeHighlightMovement;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-timing-function: ease-in-out;
+    transform-origin: center center;
+}
+
+@keyframes rayChange {
+    from {
+        transform: scale(1);
+   }
+    to {
+        transform: scale(1.05);
+   }
+}
+@keyframes blink {
+    0% {
+        transform: scale(1, 1);
+   }
+    95% {
+        transform: scale(1, 1);
+   }
+    100% {
+        transform: scale(1, 0.3);
+   }
+}
+@keyframes mouthExpression {
+    0% {
+        transform: scaleX(1);
+   }
+    75% {
+        transform: scaleX(1);
+   }
+    80% {
+        transform: scaleX(0.8);
+   }
+    95% {
+        transform: scaleX(0.8);
+   }
+    100% {
+        transform: scaleX(1);
+   }
+}
+@keyframes eyeMovement {
+    0% {
+        transform: translate(0, 0);
+   }
+    70% {
+        transform: translate(0, 0);
+   }
+    75% {
+        transform: translate(-12px, 9.3333333333px);
+   }
+    85% {
+        transform: translate(-12px, 9.3333333333px);
+   }
+    90% {
+        transform: translate(12px, 9.3333333333px);
+   }
+    95% {
+        transform: translate(12px, 9.3333333333px);
+   }
+}
+@keyframes mouthMovement {
+    0% {
+        transform: translate(0, 0);
+   }
+    70% {
+        transform: translate(0, 0);
+   }
+    75% {
+        transform: translate(-6.6666666667px, 8px);
+   }
+    85% {
+        transform: translate(-6.6666666667px, 8px);
+   }
+    90% {
+        transform: translate(6.6666666667px, 8px);
+   }
+    95% {
+        transform: translate(6.6666666667px, 8px);
+   }
+}
+@keyframes eyeHighlightMovement {
+    0% {
+        transform: translate(0, 0);
+   }
+    70% {
+        transform: translate(0, 0);
+   }
+    75% {
+        transform: translate(-2.6666666667px, 1.3333333333px);
+   }
+    85% {
+        transform: translate(-2.6666666667px, 1.3333333333px);
+   }
+    90% {
+        transform: translate(2.6666666667px, 1.3333333333px);
+   }
+    95% {
+        transform: translate(2.6666666667px, 1.3333333333px);
+   }
+}

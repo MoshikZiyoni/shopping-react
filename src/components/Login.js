@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function LoginPage({ login }) {
   function formLogin(e) {
@@ -13,7 +14,6 @@ function LoginPage({ login }) {
           <div className="col-12 col-md-8 col-lg-6 col-xl-5">
             <div className="card shadow-2-strong" style={{ borderRadius: '1rem' }}>
               <div className="card-body p-5 text-center">
-                {/* <h3 className="mb-5">Sign in</h3> */}
                 <form onSubmit={formLogin}>
                   <div className="form-outline mb-4">
                     <input type="text" className="form-control form-control-lg" name="username" placeholder="Enter Username" />
@@ -59,11 +59,14 @@ function LoginPage({ login }) {
                     <i className="fab fa-facebook-f me-2"></i> Sign in with Facebook
                   </button> */}
                 </form>
+                <Link to='/register'>Register</Link>
               </div>
             </div>
+            
           </div>
         </div>
       </div>
+      
     </section>
 
   );

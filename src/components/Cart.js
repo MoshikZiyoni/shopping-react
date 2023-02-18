@@ -6,6 +6,7 @@ import ButtonSpinner from './Spinner';
 import AlertSuccessful from './Succsess';
 import AlertDanger from './AlertDanger';
 import '../style.css';
+import Sun from './Sun';
 
 function Cart({ cartlist, setCartCount, setCartlist }) {
   const [alertMessage, setAlertMessage] = useState(false)
@@ -22,6 +23,14 @@ function Cart({ cartlist, setCartCount, setCartlist }) {
     width: '80%',
 
   };
+  useEffect(() => {
+    // axios.get('https://shopping-django-1.onrender.com/product/cart-list/')
+    const username = localStorage.getItem('username');
+    axios.get(`http://127.0.0.1:4434/product/cart/?username=${username}`)
+      .then((response) => setCartlist((response.data) ? response.data :
+        []))
+  }, [])
+
 
   const [totalPrice, setTotalPrice] = useState(0);
   useEffect(() => {
@@ -38,8 +47,6 @@ function Cart({ cartlist, setCartCount, setCartlist }) {
   }, [cartlist, refresh]);
 
   function handleCheckout() {
-
-    // axios.post('https://shopping-django-1.onrender.com/product/order/', { cartlist: cartlist })
     axios.post('https://shopping-django-1.onrender.com/product/order/', { cartlist: cartlist })
       .then(response => {
         // alert('Checkout successful');
@@ -55,7 +62,13 @@ function Cart({ cartlist, setCartCount, setCartlist }) {
         }, 1000)
       });
   }
-
+ if (!Array.isArray(cartlist) || !cartlist.length) {
+    return <>
+    <div className="error "><span >Cart is empty</span></div>
+    
+    <Sun/>
+    </>
+  }
   return (
     <>
       <div style={cardListStyle} >

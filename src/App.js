@@ -14,6 +14,7 @@ import Login from './components/Login';
 import About from './components/About';
 import Product from './components/Product';
 import Error404 from './components/Error404';
+import RegisterForm from './components/RegisterForm';
 
 function App() {
   const [product, setProduct] = useState([])
@@ -57,9 +58,11 @@ function App() {
   }
 
   function logout() {
+    // Logout from the server
     axios.get("https://shopping-django-1.onrender.com/logout/")
     setSession(null)
     alert('logout successful')
+    // Remove the session and the username from the localstorage
     localStorage.removeItem('session')
     localStorage.removeItem('username')
     setLoggedIn(false);
@@ -68,6 +71,7 @@ function App() {
 
 
   useEffect(() => {
+    // Fetch all the product items from the backend
     axios.get('https://shopping-django-1.onrender.com/product/api/')
       .then((response) => setProduct((response.data) ? response.data :
         []))
@@ -77,7 +81,8 @@ function App() {
 
   useEffect(() => {
     // Fetch cart items from the backend and update the cartCount state variable
-    axios.get('https://shopping-django-1.onrender.com/product/cart/')
+    const username = localStorage.getItem('username');
+    axios.get(`https://shopping-django-1.onrender.com/product/cart/?username=${username}`)
       .then(response => {
         setCartCount(response.data.length);
       })
@@ -96,7 +101,7 @@ function App() {
         setCartCount(e.detail.cartCount);
       });
     };
-  }, []);
+  }, [localStorage.getItem('username')]);
 
 
 
@@ -124,7 +129,8 @@ function App() {
             <Route path='/login' element={<Login login={login}></Login>}></Route>
             <Route path='/about' element={<About></About>}></Route>
             <Route path='/cart' element={<Cart cartlist={cartlist} setCartlist={setCartlist} setCartCount={setCartCount}></Cart>}></Route>
-            <Route path="*"  element={<Error404/>}/>
+            <Route path='/register' element={<RegisterForm/>}></Route>
+            <Route path="*" element={<Error404 />} />
           </Routes>
           <Footer />
 
