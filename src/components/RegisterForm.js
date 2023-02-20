@@ -16,7 +16,7 @@ const RegisterForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://127.0.0.1:4434/register/', formData)
+    axios.post('https://shopping-django-1.onrender.com/register/', formData)
       .then((response) => {
         console.log(response);
         alert('Success')
