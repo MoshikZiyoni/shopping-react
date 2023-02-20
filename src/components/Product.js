@@ -9,6 +9,8 @@ import { Message, Icon } from 'semantic-ui-react'
 import ButtonSpinner from './Spinner';
 import AlertSuccessful from './Succsess';
 import AlertDanger from './AlertDanger';
+import AlertLogin from './AlertLogin';
+
 
 const MessageExampleIcon = ({ loading }) => (
   <Message icon visible={loading}>
@@ -19,7 +21,7 @@ const MessageExampleIcon = ({ loading }) => (
     </Message.Content>
   </Message>
 )
-function Product({ product, setCartlist, setCartCount }) {
+function Product({ product, setCartlist, setCartCount, loggedIn}) {
   const [refresh, setRefresh] = useState(false)
   const [showMessage, setShowMessage] = useState(null)  // add this line
   const [spinner, setSpinner] = useState(false)
@@ -64,7 +66,7 @@ function Product({ product, setCartlist, setCartCount }) {
   }, [refresh]);
 
   if (!Array.isArray(product) || !product.length) {
-    return <div>No product found</div>
+    return <div className='error'>We are fetching the data...</div>
   }
   const cardListStyle = {
     display: 'flex',
@@ -79,6 +81,7 @@ function Product({ product, setCartlist, setCartCount }) {
   return (
 
     <div style={cardListStyle} className="fish "><span />
+     {loggedIn ? null : <AlertLogin />}
       <div className="clouds1">
         <div />
         <div />

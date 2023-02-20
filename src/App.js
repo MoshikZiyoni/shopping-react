@@ -35,7 +35,7 @@ function App() {
         localStorage.setItem('session', 'logged-in')
         localStorage.setItem('username', user)
         setLoggedIn(true);
-        window.location.replace('/');
+        window.location.replace('/product');
       })
       .catch(error => {
         console.log(error);
@@ -125,7 +125,7 @@ function App() {
           <Routes>
 
             <Route exact path='/' ></Route>
-            <Route path='/product' element={<Product product={product} setCartCount={setCartCount} setCartlist={setCartlist}  ></Product>}></Route>
+            <Route path='/product' element={<Product product={product} setCartCount={setCartCount} setCartlist={setCartlist} loggedIn={loggedIn} ></Product>}></Route>
             <Route path='/login' element={<Login login={login}></Login>}></Route>
             <Route path='/about' element={<About></About>}></Route>
             <Route path='/cart' element={<Cart cartlist={cartlist} setCartlist={setCartlist} setCartCount={setCartCount}></Cart>}></Route>
