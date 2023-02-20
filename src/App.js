@@ -15,6 +15,7 @@ import About from './components/About';
 import Product from './components/Product';
 import Error404 from './components/Error404';
 import RegisterForm from './components/RegisterForm';
+import SingleProduct from './components/SingleProduct';
 
 function App() {
   const [product, setProduct] = useState([])
@@ -130,6 +131,7 @@ function App() {
             <Route path='/about' element={<About></About>}></Route>
             <Route path='/cart' element={<Cart cartlist={cartlist} setCartlist={setCartlist} setCartCount={setCartCount}></Cart>}></Route>
             <Route path='/register' element={<RegisterForm/>}></Route>
+            <Route path='/singleproduct/:productId' element={<SingleProduct/>}></Route>
             <Route path="*" element={<Error404 />} />
           </Routes>
           <Footer />

@@ -3,13 +3,14 @@ import Card from 'react-bootstrap/Card';
 import 'bootstrap/dist/css/bootstrap.css';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { MdDateRange, MdOutlineDescription } from "react-icons/md";
+import { MdDateRange, MdOutlineDescription, MdSearch } from "react-icons/md";
 import { ImPriceTag } from "react-icons/im";
 import { Message, Icon } from 'semantic-ui-react'
 import ButtonSpinner from './Spinner';
 import AlertSuccessful from './Succsess';
 import AlertDanger from './AlertDanger';
 import AlertLogin from './AlertLogin';
+import { Link } from 'react-router-dom';
 
 
 const MessageExampleIcon = ({ loading }) => (
@@ -21,13 +22,27 @@ const MessageExampleIcon = ({ loading }) => (
     </Message.Content>
   </Message>
 )
-function Product({ product, setCartlist, setCartCount, loggedIn}) {
+function Product({ product, setCartlist, setCartCount, loggedIn }) {
   const [refresh, setRefresh] = useState(false)
   const [showMessage, setShowMessage] = useState(null)  // add this line
   const [spinner, setSpinner] = useState(false)
   const [successfulMessage, setSuccessfulMessage] = useState(false)
   const [alertMessage, setAlertMessage] = useState(false)
+  const [searchTerm, setSearchTerm] = useState('')
 
+  const filteredProducts = product.filter(p =>
+    p.name.toLowerCase().includes(searchTerm.toLowerCase())
+  )
+
+function handleCardClick(productId){
+    axios.get(`http://127.0.0.1:4434/product/api/${productId}/`)
+      // Do something with the response, e.g. show a modal with the product details
+      .then(response => {
+      console.log(response.data)
+      window.location.replace(`/singleproduct/${productId}`);
+    } )}
+     
+  
 
   function handleAddToCart(productId) {
     setShowMessage(productId)
@@ -68,6 +83,7 @@ function Product({ product, setCartlist, setCartCount, loggedIn}) {
   if (!Array.isArray(product) || !product.length) {
     return <div className='error'>We are fetching the data...</div>
   }
+
   const cardListStyle = {
     display: 'flex',
     gridTemplateColumns: 'repeat(4, 1fr)',
@@ -79,54 +95,67 @@ function Product({ product, setCartlist, setCartCount, loggedIn}) {
   };
 
   return (
+    <>
 
-    <div style={cardListStyle} className="fish "><span />
-     {loggedIn ? null : <AlertLogin />}
-      <div className="clouds1">
-        <div />
-        <div />
-        <div />
+      <div className='center-items'>
+        <MdSearch style={{ fontSize: '50px' }} />
+        <input
+          type="text"
+          placeholder="Search products"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className='input-field'
+        />
       </div>
+      <div style={cardListStyle} className="fish "><span />
+        {loggedIn ? null : <AlertLogin />}
+        <div className="clouds1">
+          <div />
+          <div />
+          <div />
+        </div>
 
-      {spinner ? <div style={{ display: 'flex' }}> <ButtonSpinner /></div> : null}
-      {
-        successfulMessage ? <AlertSuccessful /> : null
-      }
-      {
-        alertMessage ? <AlertDanger /> : null
-      }
+        {spinner ? <div style={{ display: 'flex' }}> <ButtonSpinner /></div> : null}
+        {
+          successfulMessage ? <AlertSuccessful /> : null
+        }
+        {
+          alertMessage ? <AlertDanger /> : null
+        }
 
-      {product.map((product) => {
-        return (
+        {filteredProducts.map((product) => {
+          return (
 
-          <div key={product.id} style={{ margin: '0.1rem' }}>
+            <div key={product.id} style={{ margin: '0.1rem' }}>
 
-            <Card border="secondary" className="card-hover " style={{ width: '18rem', background: 'powderblue', margin: '0.1rem', padding: '0.1rem' }}>
-              <Card.Img variant="top" src={`https://shopping-django-1.onrender.com/static${product.image}`} alt="product image" style={{ height: 300, width: '100%' }} />
-              <Card.Body>
-                <Card.Title style={{ textDecoration: "underline" }}>{product.name} </Card.Title>
-                <Card.Text style={{ fontFamily: 'cursive', fontStyle: 'oblique' }}>
+              <Card border="secondary"  className="card-hover " style={{ width: '18rem', background: 'powderblue', margin: '0.1rem', padding: '0.1rem',cursor: 'pointer' }}onClick={() => { handleCardClick(product.id)}}>
+                <Card.Img variant="top" src={`https://shopping-django-1.onrender.com/static${product.image}`} alt="product image" style={{ height: 300, width: '100%' }} />
+                <Card.Body>
+                  <Card.Title style={{ textDecoration: "underline" }}>{product.name} </Card.Title>
+                  <Card.Text style={{ fontFamily: 'cursive', fontStyle: 'oblique' }}>
+                  <Link to={`/singleproduct/${product.id}`}></Link>
 
-                  <MdOutlineDescription />{product.description}
-                  <br></br>
-                  <ImPriceTag />price: ${product.price}
-                  <br></br>
-                  <MdDateRange />Create: {product.created}
-                  <br></br>
-                  <MdDateRange />Updated: {product.updated}
-                </Card.Text>
-                <Button className='close' variant="primary" onClick={() => {
-                  handleAddToCart(product.id)
-                  setSpinner(true)
-                }}>Add to cart</Button>
-                {showMessage === product.id && spinner && <MessageExampleIcon loading={spinner} />}
-              </Card.Body>
-            </Card>
-            <br></br>
-          </div>
-        )
-      })}
-    </div>
+                    <MdOutlineDescription />{product.description}
+                    <br></br>
+                    <ImPriceTag />price: ${product.price}
+                    <br></br>
+                    <MdDateRange />Create: {product.created}
+                    <br></br>
+                    <MdDateRange />Updated: {product.updated}
+                  </Card.Text>
+                  <Button className='close' variant="primary" onClick={() => {
+                    handleAddToCart(product.id)
+                    setSpinner(true)
+                  }}>Add to cart</Button>
+                  {showMessage === product.id && spinner && <MessageExampleIcon loading={spinner} />}
+                </Card.Body>
+              </Card>
+              <br></br>
+            </div>
+          )
+        })}
+      </div>
+    </>
   )
 }
 export default Product
