@@ -24,7 +24,7 @@ function App() {
   const [cartCount, setCartCount] = useState(0);
 
   function login(user, pass) {
-    axios.post('http://127.0.0.1:4434/login/', {
+    axios.post('https://shopping-django-1.onrender.com/login/', {
       username: user,
       password: pass,
     })
