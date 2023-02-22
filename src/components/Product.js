@@ -35,11 +35,10 @@ function Product({ product, setCartlist, setCartCount, loggedIn }) {
   )
 
 function handleCardClick(productId){
-    axios.get(`http://127.0.0.1:4434/product/api/${productId}/`)
+    axios.get(`https://shopping-django-1.onrender.com/product/api/${productId}/`)
       // Do something with the response, e.g. show a modal with the product details
       .then(response => {
       console.log(response.data)
-      window.location.replace(`/singleproduct/${productId}`);
     } )}
      
   
@@ -128,12 +127,15 @@ function handleCardClick(productId){
 
             <div key={product.id} style={{ margin: '0.1rem' }}>
 
-              <Card border="secondary"  className="card-hover " style={{ width: '18rem', background: 'powderblue', margin: '0.1rem', padding: '0.1rem',cursor: 'pointer' }}onClick={() => { handleCardClick(product.id)}}>
-                <Card.Img variant="top" src={`https://shopping-django-1.onrender.com/static${product.image}`} alt="product image" style={{ height: 300, width: '100%' }} />
+              <Card border="secondary"  className="card-hover " style={{ width: '18rem', background: 'powderblue', margin: '0.1rem', padding: '0.1rem' }}>
+                <div >
+                <Link to={`/singleproduct/${product.id}`}>
+                <Card.Img variant="top" src={`https://shopping-django-1.onrender.com/static${product.image}`} alt="product image" style={{ height: 300, width: '100%',cursor:'pointer' }} onClick={() => { handleCardClick(product.id)}} />
+                </Link>
+                </div>
                 <Card.Body>
                   <Card.Title style={{ textDecoration: "underline" }}>{product.name} </Card.Title>
                   <Card.Text style={{ fontFamily: 'cursive', fontStyle: 'oblique' }}>
-                  <Link to={`/singleproduct/${product.id}`}></Link>
 
                     <MdOutlineDescription />{product.description}
                     <br></br>

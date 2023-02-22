@@ -27,7 +27,7 @@ const NavStyle = {
   flexDirection: 'column'
 }
 
-function NavBar({ cartCount, setCartCount, logout, loggedIn }) {
+function NavBar({ cartCount, logout, loggedIn }) {
 
   return (
     <>

@@ -656,10 +656,10 @@
   
   #wrapper {
     position: absolute;
-    width: 130px;
-    height: 120px;
-    left: 19%;
-    top: 70%;
+    width: 9vw;
+    height: 20vh;
+    left: 40vh;
+    /* top: 70%; */
     transform: translate(-50%, -50%);
     -webkit-transform: translate(-50%, -50%);
   }
@@ -683,10 +683,10 @@
   }
   
   #smoke {
-    width: 10px;
+    width: 1vw;
     position: absolute;
     right: 30px;
-    top: 150px;
+    top: 11vh;
     animation: smoke 1.2s linear infinite;
     -webkit-animation: smoke 1s linear infinite;
   }

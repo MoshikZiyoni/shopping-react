@@ -77,7 +77,6 @@ function Cart_list({ product, cartlist, setCartlist, setCartCount }) {
     setShowMessage(productId)
     setLoading(true)
     axios.delete(`https://shopping-django-1.onrender.com/product/delete-cart/${productId}`)
-      // axios.delete(`http://127.0.0.1:5512/product/delete-cart/${productId}`)
       .then(response => {
         setCartlist(products => {
           return products.filter(product => {
