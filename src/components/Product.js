@@ -11,6 +11,7 @@ import AlertSuccessful from './Succsess';
 import AlertDanger from './AlertDanger';
 import AlertLogin from './AlertLogin';
 import { Link } from 'react-router-dom';
+import Sun from './Sun';
 
 
 const MessageExampleIcon = ({ loading }) => (
@@ -30,18 +31,21 @@ function Product({ product, setCartlist, setCartCount, loggedIn }) {
   const [alertMessage, setAlertMessage] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
 
+  //##filter the products for Search
   const filteredProducts = product.filter(p =>
     p.name.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
-function handleCardClick(productId){
+  //#function for single product
+  function handleCardClick(productId) {
     axios.get(`https://shopping-django-1.onrender.com/product/api/${productId}/`)
       // Do something with the response, e.g. show a modal with the product details
       .then(response => {
-      console.log(response.data)
-    } )}
-     
-  
+        console.log(response.data)
+      })
+  }
+
+
 
   function handleAddToCart(productId) {
     setShowMessage(productId)
@@ -80,7 +84,10 @@ function handleCardClick(productId){
   }, [refresh]);
 
   if (!Array.isArray(product) || !product.length) {
-    return <div className='error'>We are fetching the data...</div>
+
+    return (<div className='error'>We are fetching the data...
+      <Sun />
+    </div>)
   }
 
   const cardListStyle = {
@@ -90,12 +97,10 @@ function handleCardClick(productId){
     justifyContent: 'space-evenly',
     flexWrap: 'wrap',
     width: '80%',
-
   };
 
   return (
     <>
-
       <div className='center-items'>
         <MdSearch style={{ fontSize: '50px' }} />
         <input
@@ -122,16 +127,17 @@ function handleCardClick(productId){
           alertMessage ? <AlertDanger /> : null
         }
 
+        {/* Starting the map with search */}
         {filteredProducts.map((product) => {
           return (
 
             <div key={product.id} style={{ margin: '0.1rem' }}>
 
-              <Card border="secondary"  className="card-hover " style={{ width: '18rem', background: 'powderblue', margin: '0.1rem', padding: '0.1rem' }}>
-                <div  title='Click for more details'>
-                <Link to={`/singleproduct/${product.id}`}>
-                <Card.Img variant="top" src={`https://shopping-django-1.onrender.com/static${product.image}`} alt="product image" style={{ height: 300, width: '100%',cursor:'pointer' }} onClick={() => { handleCardClick(product.id)}} />
-                </Link>
+              <Card border="secondary" className="card-hover " style={{ width: '18rem', background: 'powderblue', margin: '0.1rem', padding: '0.1rem' }}>
+                <div title='Click for more details'>
+                  <Link to={`/singleproduct/${product.id}`}>
+                    <Card.Img variant="top" src={`https://shopping-django-1.onrender.com/static${product.image}`} alt="product image" style={{ height: 300, width: '100%', cursor: 'pointer' }} onClick={() => { handleCardClick(product.id) }} />
+                  </Link>
                 </div>
                 <Card.Body>
                   <Card.Title style={{ textDecoration: "underline" }}>{product.name} </Card.Title>

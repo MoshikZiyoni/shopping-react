@@ -785,10 +785,10 @@
 
 
 
-  body {
+  /* body {
     background-image: linear-gradient(#d4ffba, #9dfffb);
     min-height: 100vh;
-}
+} */
   .sun-container {
     position: relative;
     top: 180px;
