@@ -667,7 +667,7 @@
   @media screen and (max-width: 768px) {
     /* styles for smaller screens */
     #wrapper {
-      width: 20vw;
+      width: 9vw;
       height: 30vh;
       left: 30%;
     }
