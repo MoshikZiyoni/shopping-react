@@ -64,7 +64,7 @@ function Cart({ cartlist, setCartCount, setCartlist }) {
   }
  if (!Array.isArray(cartlist) || !cartlist.length) {
     return <>
-    <div className="error "><span >Cart is empty</span></div>
+    <div className="error "><span style={{minHeight:'90vh'}}>Cart is empty</span></div>
     
     <Sun/>
     </>

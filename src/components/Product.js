@@ -128,7 +128,7 @@ function handleCardClick(productId){
             <div key={product.id} style={{ margin: '0.1rem' }}>
 
               <Card border="secondary"  className="card-hover " style={{ width: '18rem', background: 'powderblue', margin: '0.1rem', padding: '0.1rem' }}>
-                <div >
+                <div  title='Click for more details'>
                 <Link to={`/singleproduct/${product.id}`}>
                 <Card.Img variant="top" src={`https://shopping-django-1.onrender.com/static${product.image}`} alt="product image" style={{ height: 300, width: '100%',cursor:'pointer' }} onClick={() => { handleCardClick(product.id)}} />
                 </Link>

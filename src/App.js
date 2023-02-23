@@ -116,7 +116,7 @@ function App() {
           backgroundImage: `url(${logo})`,
           // "backgroundSize": "cover",
           position: "absolute",
-          // minHeight: '92vh',
+          minHeight: '89vh',
           width: "100%",
           zIndex: 1,
         }} className="App"  >

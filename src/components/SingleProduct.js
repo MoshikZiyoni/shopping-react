@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { MdDateRange, MdOutlineDescription, MdSearch } from "react-icons/md";
+import { MdDateRange, MdOutlineDescription } from "react-icons/md";
 import { ImPriceTag } from "react-icons/im";
 import Card from 'react-bootstrap/Card';
 import 'bootstrap/dist/css/bootstrap.css';
 import ButtonSpinner from './Spinner';
+import StarRating from './StarRating';
 
 function SingleProduct() {
   const { productId } = useParams();
@@ -48,6 +49,7 @@ function SingleProduct() {
                     <MdDateRange />Create: {product.created}
                     <br></br>
                     <MdDateRange />Updated: {product.updated}
+                    <StarRating/>
                   </Card.Text>
                 </Card.Body>
               </Card>
