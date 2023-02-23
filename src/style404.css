@@ -658,10 +658,28 @@
     position: absolute;
     width: 9vw;
     height: 20vh;
-    left: 40vh;
-    /* top: 70%; */
+    left: 50%;
+    top: 50%;
     transform: translate(-50%, -50%);
     -webkit-transform: translate(-50%, -50%);
+  }
+  
+  @media screen and (max-width: 768px) {
+    /* styles for smaller screens */
+    #wrapper {
+      width: 20vw;
+      height: 30vh;
+      left: 30%;
+    }
+  }
+  
+  @media screen and (min-width: 768px) {
+    /* styles for larger screens */
+    #wrapper {
+      width: 9vw;
+      height: 20vh;
+      left: 40%;
+    }
   }
   
   #car-body {
