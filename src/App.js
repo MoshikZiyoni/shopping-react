@@ -110,7 +110,7 @@ function App() {
   useEffect(() => {
     // Fetch order's from the backend and show the order belong to the user
     const username = localStorage.getItem('username');
-    axios.get(`http://127.0.0.1:4434/product/allorder/?username=${username}`)
+    axios.get(`https://shopping-django-1.onrender.com/product/allorder/?username=${username}`)
         .then((response) => setAllOrder((response.data) ? response.data :
         []))
         .catch(error => {

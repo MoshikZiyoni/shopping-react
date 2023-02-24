@@ -47,7 +47,7 @@ function Cart({ cartlist, setCartCount, setCartlist }) {
   }, [cartlist, refresh]);
 
   function handleCheckout() {
-    axios.post('http://127.0.0.1:4434/product/order/', { cartlist: cartlist })
+    axios.post('https://shopping-django-1.onrender.com/product/order/', { cartlist: cartlist })
       .then(response => {
         setCartlist([]);
         setCartCount(0);
