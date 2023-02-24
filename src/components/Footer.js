@@ -11,8 +11,7 @@ function Footer() {
         left: '85%',
         width: '200px'
       }}>
-        Logged in as: {localStorage.getItem('username')}
-        <br></br>
+       
 
         <Link to='/about'>About</Link>
       </div>

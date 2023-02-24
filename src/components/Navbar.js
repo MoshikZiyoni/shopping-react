@@ -1,7 +1,7 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { AiOutlineShop } from "react-icons/ai";
 import { AiFillHome, AiOutlineLogin } from "react-icons/ai";
 import Badge from '@mui/material/Badge';
@@ -10,6 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import '../style.css';
 import Car from './Car';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -63,18 +64,31 @@ function NavBar({ cartCount, logout, loggedIn }) {
           </IconButton>
         </NavLink>
 
-        {loggedIn ? (
-          <NavLink style={{ color: 'black' }} to="/" onClick={logout}>
-            <AiOutlineLogin />
-            Logout
-          </NavLink>
-        ) : (
-          <NavLink style={{ color: 'black' }} to="/login">
-            <AiOutlineLogin />
+        <Dropdown>
+  <Dropdown.Toggle id="dropdown-basic">
+    {loggedIn ? (
+      <div>
+        <span style={{ marginRight: '5px' }}>Welcome, {localStorage.getItem('username')}!</span>
+        
+      </div>
+    ) : (
+      <div>
+        <NavLink style={{ color: 'black' }} to="/login">
+        <AiOutlineLogin />
+        Login
+        </NavLink>
+      </div>
+    )}
+  </Dropdown.Toggle>
 
-            Login
-          </NavLink>
-        )}
+  {loggedIn && (
+    <Dropdown.Menu>
+      <Dropdown.Item ><Link to="/orders"> Orders history</Link></Dropdown.Item>
+      <Dropdown.Divider />
+      <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
+    </Dropdown.Menu>
+  )}
+</Dropdown>
 
       </Navbar>
 

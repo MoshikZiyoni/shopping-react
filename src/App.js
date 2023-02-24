@@ -16,6 +16,7 @@ import Product from './components/Product';
 import Error404 from './components/Error404';
 import RegisterForm from './components/RegisterForm';
 import SingleProduct from './components/SingleProduct';
+import Orders from './components/Orders';
 
 function App() {
   const [product, setProduct] = useState([])
@@ -23,7 +24,7 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(localStorage.getItem('session') === 'logged-in');
   const [cartlist, setCartlist] = useState([])
   const [cartCount, setCartCount] = useState(0);
-
+  const [allOrder, setAllOrder] = useState([])
   function login(user, pass) {
     axios.post('https://shopping-django-1.onrender.com/login/', {
       username: user,
@@ -106,11 +107,24 @@ function App() {
 
 
 
+  useEffect(() => {
+    // Fetch order's from the backend and show the order belong to the user
+    const username = localStorage.getItem('username');
+    axios.get(`http://127.0.0.1:4434/product/allorder/?username=${username}`)
+        .then((response) => setAllOrder((response.data) ? response.data :
+        []))
+        .catch(error => {
+            console.log(error);
+        })
+}, [])
+
+
+
   return (
     <>
       <BrowserRouter>
 
-        <NavBar cartCount={cartCount} setCartCount={setCartCount} logout={logout} loggedIn={loggedIn} />
+        <NavBar cartCount={cartCount} setCartCount={setCartCount} logout={logout} loggedIn={loggedIn}  />
 
         <div style={{
           backgroundImage: `url(${logo})`,
@@ -130,8 +144,9 @@ function App() {
             <Route path='/login' element={<Login login={login}></Login>}></Route>
             <Route path='/about' element={<About></About>}></Route>
             <Route path='/cart' element={<Cart cartlist={cartlist} setCartlist={setCartlist} setCartCount={setCartCount}></Cart>}></Route>
-            <Route path='/register' element={<RegisterForm/>}></Route>
-            <Route path='/singleproduct/:productId' element={<SingleProduct/>}></Route>
+            <Route path='/register' element={<RegisterForm />}></Route>
+            <Route path='/singleproduct/:productId' element={<SingleProduct />}></Route>
+            <Route path='/orders' element={<Orders allOrder={allOrder} />}></Route>
             <Route path="*" element={<Error404 />} />
           </Routes>
           <Footer />
