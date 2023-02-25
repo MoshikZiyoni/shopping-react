@@ -147,7 +147,7 @@ function App() {
             <Route path='/cart' element={<Cart cartlist={cartlist} setCartlist={setCartlist} setCartCount={setCartCount}></Cart>}></Route>
             <Route path='/register' element={<RegisterForm />}></Route>
             <Route path='/singleproduct/:productId' element={<SingleProduct />}></Route>
-            <Route path='/orders' element={<Orders allOrder={allOrder} product={product} />}></Route>
+            <Route path='/orders' element={<Orders allOrder={allOrder} product={product} setCartlist={setCartlist} setCartCount={setCartCount} />}></Route>
             <Route path="*" element={<Error404 />} />
           </Routes>
           <Footer />
