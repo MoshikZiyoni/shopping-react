@@ -111,8 +111,9 @@ function App() {
     // Fetch order's from the backend and show the order belong to the user
     const username = localStorage.getItem('username');
     axios.get(`https://shopping-django-1.onrender.com/product/allorder/?username=${username}`)
-        .then((response) => setAllOrder((response.data) ? response.data :
-        []))
+    
+        .then((response)  =>  setAllOrder((response.data) ? response.data :
+         []) )
         .catch(error => {
             console.log(error);
         })
@@ -146,7 +147,7 @@ function App() {
             <Route path='/cart' element={<Cart cartlist={cartlist} setCartlist={setCartlist} setCartCount={setCartCount}></Cart>}></Route>
             <Route path='/register' element={<RegisterForm />}></Route>
             <Route path='/singleproduct/:productId' element={<SingleProduct />}></Route>
-            <Route path='/orders' element={<Orders allOrder={allOrder} />}></Route>
+            <Route path='/orders' element={<Orders allOrder={allOrder} product={product} />}></Route>
             <Route path="*" element={<Error404 />} />
           </Routes>
           <Footer />
