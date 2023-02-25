@@ -26,7 +26,7 @@ function Cart({ cartlist, setCartCount, setCartlist }) {
   useEffect(() => {
     // axios.get('https://shopping-django-1.onrender.com/product/cart-list/')
     const username = localStorage.getItem('username');
-    axios.get(`http://127.0.0.1:4434/product/cart/?username=${username}`)
+    axios.get(`https://shopping-django-1.onrender.com/product/cart/?username=${username}`)
       .then((response) => setCartlist((response.data) ? response.data :
         []))
   }, [])
