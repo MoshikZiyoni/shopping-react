@@ -17,6 +17,7 @@ import Error404 from './components/Error404';
 import RegisterForm from './components/RegisterForm';
 import SingleProduct from './components/SingleProduct';
 import Orders from './components/Orders';
+import API_15_minutes from './components/CallToAPI';
 
 function App() {
   const [product, setProduct] = useState([])
@@ -123,6 +124,7 @@ function App() {
 
   return (
     <>
+    <API_15_minutes/>
       <BrowserRouter>
 
         <NavBar cartCount={cartCount} setCartCount={setCartCount} logout={logout} loggedIn={loggedIn}  />
@@ -138,7 +140,7 @@ function App() {
 
           <Headers />
 
-          <Routes>
+          <Routes >
 
             <Route exact path='/' ></Route>
             <Route path='/product' element={<Product product={product} setCartCount={setCartCount} setCartlist={setCartlist} loggedIn={loggedIn} ></Product>}></Route>

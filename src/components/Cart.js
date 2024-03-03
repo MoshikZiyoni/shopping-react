@@ -24,7 +24,6 @@ function Cart({ cartlist, setCartCount, setCartlist }) {
 
   };
   useEffect(() => {
-    // axios.get('https://shopping-django-1.onrender.com/product/cart-list/')
     const username = localStorage.getItem('username');
     axios.get(`https://shopping-django-1.onrender.com/product/cart/?username=${username}`)
       .then((response) => setCartlist((response.data) ? response.data :
@@ -108,7 +107,7 @@ function Cart({ cartlist, setCartCount, setCartlist }) {
               }, 1000 * 3)
             }} style={{ marginLeft: "10px" }}>
               {spinner ? <div style={{ display: 'flex' }}> <ButtonSpinner />  </div> : 'Checkout'}
-            </Button>
+            </Button >
 
           </div>}
     </>
