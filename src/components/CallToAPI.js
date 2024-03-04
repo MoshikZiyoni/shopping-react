@@ -13,14 +13,18 @@ const API_15_minutes = () => {
       }
     };
 
+    // Execute the API call immediately
+    sendAPICall();
+
     // Execute the API call every 15 minutes
-    const interval = setInterval(sendAPICall, 15 * 60 * 1000);
+    // const interval = setInterval(sendAPICall, 15 * 60 * 1000);
+    const interval = setInterval(sendAPICall, 60 * 1000);
 
     // Clear the interval when the component is unmounted
     return () => clearInterval(interval);
   }, []);
 
-  return <div>Your component content here</div>;
+  return <div></div>; // Placeholder div, you can replace it with your desired content
 };
 
 export default API_15_minutes;
