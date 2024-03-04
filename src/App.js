@@ -74,11 +74,23 @@ function App() {
 
 
   useEffect(() => {
-    // Fetch all the product items from the backend
-    axios.get('https://shopping-django-1.onrender.com/product/api/')
-      .then((response) => setProduct((response.data) ? response.data :
-        []))
-  }, [])
+    const fetchData = () => {
+      axios.get('https://shopping-django-1.onrender.com/product/api/')
+        .then((response) => setProduct(response.data || []))
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+  
+    // Fetch the data immediately
+    fetchData();
+  
+    // Fetch the data every 1 minute
+    const interval = setInterval(fetchData, 60000);
+  
+    // Clean up the interval when the component unmounts
+    return () => clearInterval(interval);
+  }, []);
 
 
 
